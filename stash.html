@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Stash">
+<link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTIgMTkyIj4KICA8cmVjdCB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgcng9IjQwIiBmaWxsPSIjMGEwYzEyIi8+CiAgPHRleHQgeD0iOTYiIHk9IjE0MCIgZm9udC1zaXplPSIxMzAiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcHBsZSBDb2xvciBFbW9qaSxTZWdvZSBVSSBFbW9qaSxzZXJpZiI+8J+MvzwvdGV4dD4KPC9zdmc+">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#4ade80">
+<title>🌿 Stash → Fidelity Tracker</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{font-family:-apple-system,'Segoe UI',Arial,sans-serif;background:#0a0c12;color:#e0e0e0;min-height:100vh;padding:14px 12px 90px;}
+.container{max-width:780px;margin:0 auto;}
+h1{font-size:20px;font-weight:700;color:#4ade80;margin-bottom:2px;}
+.subtitle{color:#555;font-size:10px;margin-bottom:14px;}
+
+/* TABS */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#1a1d2e;border-top:1px solid #2a2d3e;display:flex;z-index:100;}
+.nav-btn{flex:1;padding:10px 6px;text-align:center;cursor:pointer;font-size:9px;color:#555;border:none;background:transparent;}
+.nav-btn .nav-icon{font-size:16px;display:block;margin-bottom:2px;}
+.nav-btn.active{color:#4ade80;}
+.tab-content{display:none;}
+.tab-content.active{display:block;}
+
+/* BANNER */
+.acct-banner{background:linear-gradient(135deg,#0d2e22,#0a1a0a);border:1px solid #4ade80;border-radius:14px;padding:14px 16px;margin-bottom:12px;}
+.ab-row{display:flex;justify-content:space-between;align-items:center;}
+.ab-label{font-size:11px;color:#888;}
+.ab-val{font-size:28px;font-weight:800;color:#4ade80;}
+.ab-sub{display:flex;gap:8px;margin-top:8px;padding-top:8px;border-top:1px solid #1a2a1a;flex-wrap:wrap;}
+.ab-pill{font-size:10px;padding:3px 8px;border-radius:20px;font-weight:600;}
+.pill-green{background:#0d2e22;color:#4ade80;border:1px solid #4ade80;}
+.pill-orange{background:#2e1f00;color:#f0a500;border:1px solid #f0a500;}
+.pill-red{background:#2e0d0d;color:#ff6b6b;border:1px solid #ff6b6b;}
+.pill-purple{background:#0d1433;color:#a78bfa;border:1px solid #a78bfa;}
+
+/* SECTION HEADER */
+.sec-hdr{font-size:10px;color:#444;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;margin:14px 0 7px;padding-left:2px;}
+
+/* POSITION CARDS */
+.pos-card{background:#1a1d2e;border:1px solid #2a2d3e;border-radius:10px;margin-bottom:7px;overflow:hidden;}
+.pos-row{display:flex;align-items:center;padding:10px 13px;}
+.pos-dot{width:7px;height:7px;border-radius:50%;margin-right:9px;flex-shrink:0;}
+.dot-sell{background:#ff4d4d;}
+.dot-keep{background:#4ade80;}
+.dot-watch{background:#f0a500;}
+.pos-info{flex:1;}
+.pos-name{font-size:12px;color:#d0d0d0;font-weight:500;}
+.pos-meta{font-size:9px;color:#555;margin-top:1px;}
+.pos-right{text-align:right;}
+.pos-val{font-size:12px;font-weight:600;color:#4ade80;}
+.pos-flag{font-size:8px;padding:2px 6px;border-radius:10px;margin-top:3px;font-weight:600;display:inline-block;}
+.flag-sell{background:#2e0d0d;color:#ff6b6b;border:1px solid #ff4d4d;}
+.flag-overlap{background:#2e1f00;color:#f0a500;border:1px solid #f0a500;}
+.flag-keep{background:#0d2e22;color:#4ade80;border:1px solid #4ade80;}
+.flag-migrate{background:#0d1433;color:#a78bfa;border:1px solid #a78bfa;}
+
+/* SELL CHECKLIST */
+.sell-card{background:#1a1d2e;border:1px solid #2a2d3e;border-radius:10px;margin-bottom:7px;overflow:hidden;}
+.sell-row{display:flex;align-items:center;padding:11px 13px;cursor:pointer;user-select:none;}
+.sell-row:active{background:#1f2235;}
+.sell-row.checked{opacity:0.35;}
+.sell-row.checked .sn{text-decoration:line-through;color:#444;}
+.chkbox{width:20px;height:20px;border:2px solid #333;border-radius:4px;margin-right:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.sell-row.checked .chkbox{background:#ff4d4d;border-color:#ff4d4d;}
+.chkbox svg{display:none;}
+.sell-row.checked .chkbox svg{display:block;}
+.sinfo{flex:1;}
+.sn{font-size:12px;color:#d0d0d0;font-weight:500;}
+.sm{font-size:9px;color:#555;margin-top:1px;}
+.sv{font-size:12px;font-weight:600;color:#ff6b6b;white-space:nowrap;margin-left:8px;}
+
+/* PROGRESS */
+.prog-wrap{background:#1e2130;border-radius:20px;height:6px;margin-bottom:4px;overflow:hidden;}
+.prog-bar{height:100%;background:linear-gradient(90deg,#ff4d4d,#ff9900);border-radius:20px;transition:width 0.4s;width:0%;}
+.prog-text{font-size:9px;color:#555;margin-bottom:12px;}
+.prog-text span{color:#ff6b6b;font-weight:600;}
+.cash-raised{background:#1a1d2e;border:1px solid #4ade80;border-radius:10px;padding:10px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;}
+.cr-l{font-size:11px;color:#777;}
+.cr-v{font-size:16px;font-weight:700;color:#4ade80;}
+
+/* ALERT */
+.alert-green{background:#0d2e22;border:1px solid #4ade80;border-radius:10px;padding:10px 14px;margin-bottom:10px;font-size:10px;color:#4ade80;line-height:1.5;}
+.alert-orange{background:#2e1f00;border:1px solid #f0a500;border-radius:10px;padding:10px 14px;margin-bottom:10px;font-size:10px;color:#f0a500;line-height:1.5;}
+.alert-green strong,.alert-orange strong{font-weight:700;}
+
+/* RESET BTN */
+.reset-btn{display:block;width:100%;margin-top:10px;padding:11px;background:#1a1d2e;border:1px solid #2a2d3e;border-radius:10px;color:#555;font-size:11px;cursor:pointer;text-align:center;}
+
+/* SUMMARY GRID */
+.sum-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:14px;}
+.sum-card{background:#1a1d2e;border:1px solid #2a2d3e;border-radius:10px;padding:10px 12px;}
+.sum-name{font-size:11px;font-weight:700;color:#c0c8ff;}
+.sum-val{font-size:16px;font-weight:700;color:#4ade80;margin-top:2px;}
+.sum-sub{font-size:9px;color:#555;margin-top:2px;}
+.sum-status{font-size:8px;color:#4ade80;margin-top:2px;font-weight:600;}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>🌿 Stash → Fidelity</h1>
+<div class="subtitle">Reconciliation tracker · All 3 accounts transferred July 7</div>
+
+<!-- OVERVIEW TAB -->
+<div id="tab-overview" class="tab-content active">
+  <div class="acct-banner">
+    <div class="ab-row">
+      <div><div class="ab-label">Total Stash Value</div><div class="ab-val">$14,625</div></div>
+      <div style="text-align:right"><div class="ab-label">Status</div><div style="font-size:13px;font-weight:700;color:#4ade80;">✅ In Transit</div></div>
+    </div>
+    <div class="ab-sub">
+      <span class="ab-pill pill-green">🌿 Personal $4,844</span>
+      <span class="ab-pill pill-purple">🏦 IRA $6,338</span>
+      <span class="ab-pill pill-orange">🤖 Smart $3,443</span>
+    </div>
+  </div>
+
+  <div class="sum-grid">
+    <div class="sum-card" onclick="showTab('personal')">
+      <div class="sum-name">🌿 Stash Personal</div>
+      <div class="sum-val">$4,844</div>
+      <div class="sum-sub">21 sell candidates</div>
+      <div class="sum-status">✅ Transfer initiated</div>
+    </div>
+    <div class="sum-card" onclick="showTab('ira')">
+      <div class="sum-name">🏦 Stash IRA</div>
+      <div class="sum-val">$6,338</div>
+      <div class="sum-sub">29 holdings</div>
+      <div class="sum-status">✅ Transfer initiated</div>
+    </div>
+    <div class="sum-card" onclick="showTab('smart')">
+      <div class="sum-name">🤖 Stash Smart</div>
+      <div class="sum-val">$3,443</div>
+      <div class="sum-sub">4 automated holdings</div>
+      <div class="sum-status">✅ Transfer initiated</div>
+    </div>
+    <div class="sum-card">
+      <div class="sum-name">📅 Expected Arrival</div>
+      <div class="sum-val" style="font-size:13px;">~July 7</div>
+      <div class="sum-sub">Cancel subscription after</div>
+      <div class="sum-status">💰 Saves $36/yr</div>
+    </div>
+  </div>
+
+  <div class="alert-green"><strong>✅ All 3 Stash accounts transferred to Fidelity.</strong> Use this tracker to reconcile what arrives. Positions marked "Sell" should appear as cash — positions marked "Transfer" should appear as holdings.</div>
+
+  <div class="sec-hdr">📋 What to expect in Fidelity</div>
+  <div class="pos-card"><div class="pos-row"><div class="pos-dot dot-sell"></div><div class="pos-info"><div class="pos-name">Sell candidates (Personal)</div><div class="pos-meta">Losers & overlaps — should arrive as cash or be sold before settlement</div></div><div class="pos-right"><div class="pos-val" style="color:#ff6b6b;">21 items</div><span class="pos-flag flag-sell">Check Personal tab</span></div></div></div>
+  <div class="pos-card"><div class="pos-row"><div class="pos-dot dot-keep"></div><div class="pos-info"><div class="pos-name">IRA holdings (29 positions)</div><div class="pos-meta">Transfer in-kind to Fidelity IRA — no tax event</div></div><div class="pos-right"><div class="pos-val">$6,338</div><span class="pos-flag flag-migrate">→ Fidelity IRA</span></div></div></div>
+  <div class="pos-card"><div class="pos-row"><div class="pos-dot dot-keep"></div><div class="pos-info"><div class="pos-name">Smart Portfolio (4 holdings)</div><div class="pos-meta">Bonds, US, Foreign, Emerging — all transfer in-kind</div></div><div class="pos-right"><div class="pos-val">$3,443</div><span class="pos-flag flag-migrate">→ Fidelity</span></div></div></div>
+</div>
+
+<!-- PERSONAL TAB -->
+<div id="tab-personal" class="tab-content">
+  <div style="background:linear-gradient(135deg,#0d2e22,#0a1a0a);border:1px solid #4ade80;border-radius:12px;padding:12px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+    <div style="font-size:11px;color:#888;">🌿 Stash Personal Total</div>
+    <div style="font-size:24px;font-weight:800;color:#4ade80;">$4,844</div>
+  </div>
+  <div class="alert-green"><strong>✅ Transfer Initiated.</strong> In transit to Fidelity. Arriving ~July 7. Cancel subscription once settled.</div>
+  <div style="background:#1a1d2e;border:1px solid #a78bfa;border-radius:10px;padding:10px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+    <div><div style="font-size:11px;color:#a78bfa;font-weight:600;">📅 Stash Personal Dividends</div><div style="font-size:9px;color:#444;">Estimated annual income</div></div>
+    <div><div style="font-size:20px;font-weight:700;color:#a78bfa;">~$15/yr</div><div style="font-size:9px;color:#555;text-align:right;">~$1/mo</div></div>
+  </div>
+
+  <div class="sec-hdr">🔴 Should Have Been Sold First</div>
+  <div class="alert-orange"><strong>⚠️ These are losers & overlaps.</strong> If they transferred as holdings, consider selling them in Fidelity. Check them off as you reconcile each one.</div>
+  <div class="prog-wrap"><div class="prog-bar" id="stProg"></div></div>
+  <div class="prog-text"><span id="stDone">0</span> of <span id="stTot">0</span> reconciled</div>
+  <div class="cash-raised"><div class="cr-l">💰 Value of reconciled sells</div><div class="cr-v" id="stRaisedDisplay">$0</div></div>
+  <div id="stSellList"></div>
+  <button class="reset-btn" onclick="clearST()">↺ Reset Stash Personal</button>
+</div>
+
+<!-- IRA TAB -->
+<div id="tab-ira" class="tab-content">
+  <div style="background:linear-gradient(135deg,#0d2e22,#0a1a0a);border:1px solid #4ade80;border-radius:12px;padding:12px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+    <div style="font-size:11px;color:#888;">🏦 Stash IRA Total</div>
+    <div style="font-size:24px;font-weight:800;color:#4ade80;">$6,338</div>
+  </div>
+  <div class="alert-green"><strong>✅ Stash IRA Transfer Initiated.</strong> Direct trustee-to-trustee transfer to Fidelity IRA. No tax event. Arriving ~July 7. Diversify out of GOOGL concentration once settled.</div>
+  <div style="background:#1a1d2e;border:1px solid #a78bfa;border-radius:10px;padding:10px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+    <div><div style="font-size:11px;color:#a78bfa;font-weight:600;">📅 Stash IRA Dividends</div><div style="font-size:9px;color:#444;">Estimated annual income</div></div>
+    <div><div style="font-size:20px;font-weight:700;color:#a78bfa;">~$47/yr</div><div style="font-size:9px;color:#555;text-align:right;">~$4/mo</div></div>
+  </div>
+  <div class="sec-hdr">🏦 IRA Holdings — Tap to mark arrived in Fidelity</div>
+  <div id="iraList"></div>
+</div>
+
+<!-- SMART TAB -->
+<div id="tab-smart" class="tab-content">
+  <div style="background:linear-gradient(135deg,#0d2e22,#0a1a0a);border:1px solid #4ade80;border-radius:12px;padding:12px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+    <div style="font-size:11px;color:#888;">🤖 Stash Smart Total</div>
+    <div style="font-size:24px;font-weight:800;color:#4ade80;">$3,443</div>
+  </div>
+  <div class="alert-green"><strong>✅ Stash Smart Portfolio Transfer Initiated.</strong> In transit to Fidelity. All 4 holdings transfer in-kind. Replace with VOO + VYM in Fidelity after settlement.</div>
+  <div style="background:#1a1d2e;border:1px solid #a78bfa;border-radius:10px;padding:10px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+    <div><div style="font-size:11px;color:#a78bfa;font-weight:600;">📅 Smart Portfolio Dividends</div><div style="font-size:9px;color:#444;">Estimated annual income</div></div>
+    <div><div style="font-size:20px;font-weight:700;color:#a78bfa;">~$39/yr</div><div style="font-size:9px;color:#555;text-align:right;">~$3/mo</div></div>
+  </div>
+  <div class="sec-hdr">Holdings — Tap to mark arrived in Fidelity</div>
+  <div id="smartList"></div>
+</div>
+
+<!-- WEBULL TAB -->
+<div id="tab-webull" class="tab-content">
+  <div style="background:linear-gradient(135deg,#0d2e22,#0a1a0a);border:1px solid #4ade80;border-radius:12px;padding:12px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+    <div style="font-size:11px;color:#888;">📈 Webull Total</div>
+    <div style="font-size:24px;font-weight:800;color:#4ade80;">$46.82</div>
+  </div>
+  <div class="alert-orange"><strong>⚠️ Sell all 4 positions tomorrow then close account.</strong> All fractional or small — sell, withdraw $2.31 cash + proceeds to bank → Fidelity.</div>
+  <div style="background:#1a1d2e;border:1px solid #2a2d3e;border-radius:10px;padding:10px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+    <div style="font-size:11px;color:#555;">💵 Cash Balance</div>
+    <div style="font-size:16px;font-weight:700;color:#f0a500;">$2.31</div>
+  </div>
+  <div class="sec-hdr">🔴 Sell All — Close Account Tomorrow</div>
+  <div class="prog-wrap"><div class="prog-bar" id="wbProg"></div></div>
+  <div class="prog-text"><span id="wbDone">0</span> of <span id="wbTot">0</span> sold</div>
+  <div class="cash-raised"><div class="cr-l">💰 Value of sold positions</div><div class="cr-v" id="wbRaisedDisplay">$0</div></div>
+  <div id="wbSellList"></div>
+  <button class="reset-btn" onclick="clearWB()">↺ Reset Webull</button>
+</div>
+
+</div><!-- end container -->
+
+<div class="bottom-nav">
+  <button class="nav-btn active" id="nav-overview" onclick="showTab('overview')"><span class="nav-icon">🏠</span>Overview</button>
+  <button class="nav-btn" id="nav-personal" onclick="showTab('personal')"><span class="nav-icon">🌿</span>Personal</button>
+  <button class="nav-btn" id="nav-ira" onclick="showTab('ira')"><span class="nav-icon">🏦</span>IRA</button>
+  <button class="nav-btn" id="nav-smart" onclick="showTab('smart')"><span class="nav-icon">🤖</span>Smart</button>
+  <button class="nav-btn" id="nav-webull" onclick="showTab('webull')"><span class="nav-icon">📈</span>Webull</button>
+</div>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────
+const stSellItems = [
+  {n:"FuelCell Energy",v:4.98,reason:"Down -87% · No recovery path · Should be sold"},
+  {n:"Moderna Inc",v:21.83,reason:"Down -56% · Speculative biotech"},
+  {n:"C3 AI Inc",v:9.15,reason:"Down -54% · AI hype stock · No dividend"},
+  {n:"Accenture PLC",v:15.94,reason:"Down -62% · Also in Cash App · Sell both"},
+  {n:"Enphase Energy",v:11.04,reason:"Down -79% · Clean energy speculation"},
+  {n:"Rivian Automotive",v:6.59,reason:"Down -67% · EV speculation"},
+  {n:"Voyager Therapeutics",v:13.88,reason:"Down -43% · Biotech speculation"},
+  {n:"NVIDIA (overlap)",v:78.69,reason:"Overlap with Cash App $1,393 position · Consolidate"},
+  {n:"Tesla (overlap)",v:26.88,reason:"Overlap with Cash App $1,271 position · Consolidate"},
+  {n:"Meta Platforms (overlap)",v:28.02,reason:"Overlap with Cash App $1,119 position · Consolidate"},
+  {n:"Amazon (overlap)",v:13.46,reason:"Overlap with Cash App $979 position · Consolidate"},
+  {n:"Walmart (overlap)",v:12.04,reason:"Overlap with Cash App $171 position · Consolidate"},
+  {n:"Netflix (overlap)",v:5.81,reason:"Overlap with Cash App $304 position · Consolidate"},
+  {n:"Costco (overlap)",v:5.08,reason:"Overlap with Cash App $146 position · Consolidate"},
+  {n:"Apple (overlap)",v:9.33,reason:"Overlap with Cash App $665 position · Consolidate"},
+  {n:"Alphabet/Google (overlap)",v:10.33,reason:"Overlap with Cash App $19 position · Consolidate"},
+  {n:"Zscaler (overlap)",v:1.24,reason:"Down -58% · Also in Cash App · Sell Stash"},
+  {n:"Comcast",v:0.08,reason:"Down -24% · Tiny · Media declining"},
+  {n:"Kraft Heinz",v:0.07,reason:"Down -33% · Consumer staple with debt issues"},
+  {n:"American Vanguard Corp",v:2.38,reason:"Down -52% · Specialty chemicals"},
+  {n:"IAMGOLD Corporation",v:2.26,reason:"Down -24% · Tiny gold miner"},
+];
+
+const iraItems = [
+  {n:"Alphabet Inc. (GOOGL)",v:2307.21,note:"36% of IRA — over-concentrated · Diversify after transfer",flag:"flag-overlap"},
+  {n:"iShares Core Dividend Growth ETF",v:746.14,note:"Strong dividend ETF · Keep",flag:"flag-migrate"},
+  {n:"Meta Platforms",v:558.68,note:"+140% · Keep",flag:"flag-migrate"},
+  {n:"American Innovators ETF",v:229.87,note:"Growth ETF · Keep",flag:"flag-migrate"},
+  {n:"Apple",v:217.22,note:"+67% · Keep",flag:"flag-migrate"},
+  {n:"Linde PLC",v:204.58,note:"Industrial gas leader · Keep",flag:"flag-migrate"},
+  {n:"Abercrombie & Fitch",v:158.10,note:"+198% · Keep",flag:"flag-migrate"},
+  {n:"Essential Europe ETF",v:154.09,note:"European exposure · Keep",flag:"flag-migrate"},
+  {n:"NVIDIA",v:141.61,note:"+301% · Keep",flag:"flag-migrate"},
+  {n:"Coca-Cola",v:128.79,note:"Dividend income · Keep",flag:"flag-migrate"},
+  {n:"Zscaler",v:125.21,note:"-21% · Consider selling in Fidelity",flag:"flag-overlap"},
+  {n:"Zoom Video",v:114.09,note:"-2.6% · Commoditized · Consider selling",flag:"flag-overlap"},
+  {n:"Up & Coming ETF",v:106.54,note:"Small/mid growth · Keep",flag:"flag-migrate"},
+  {n:"TG Therapeutics",v:81.22,note:"+62% · Keep",flag:"flag-migrate"},
+  {n:"Roku Inc",v:82.13,note:"+36% · Keep",flag:"flag-migrate"},
+  {n:"ASML Holding",v:80.09,note:"+207% · Keep",flag:"flag-migrate"},
+  {n:"Occidental Petroleum",v:68.23,note:"-12% · Energy · Keep",flag:"flag-migrate"},
+  {n:"Coinbase Global",v:57.19,note:"-18% · Consider selling",flag:"flag-overlap"},
+  {n:"Amazon",v:57.15,note:"Overlap w/ Cash App · Transfer anyway",flag:"flag-migrate"},
+  {n:"Stocks Nationwide ETF",v:55.87,note:"Broad US ETF · Keep",flag:"flag-migrate"},
+  {n:"Ultra Clean Holdings",v:54.39,note:"+262% · Semiconductor · Keep",flag:"flag-migrate"},
+  {n:"Emerging India ETF",v:53.19,note:"EM exposure · Keep",flag:"flag-migrate"},
+  {n:"iShares MSCI World ETF",v:50.86,note:"Global ETF · Keep",flag:"flag-migrate"},
+  {n:"New York Times",v:61.20,note:"+128% · Keep",flag:"flag-migrate"},
+  {n:"Micron Technology",v:32.24,note:"+168% · Semiconductor · Keep",flag:"flag-migrate"},
+  {n:"Lockheed Martin",v:37.72,note:"Defense · Keep",flag:"flag-migrate"},
+  {n:"Doximity Inc",v:7.68,note:"-48% · Consider selling",flag:"flag-overlap"},
+  {n:"Rivian Automotive (IRA)",v:6.59,note:"-67% · Sell in Fidelity",flag:"flag-sell"},
+  {n:"Enphase Energy (IRA)",v:11.04,note:"-79% · Sell in Fidelity",flag:"flag-sell"},
+  {n:"Trade Desk",v:5.50,note:"-63% · Sell in Fidelity",flag:"flag-sell"},
+];
+
+const smartItems = [
+  {n:"Bonds (AGG equivalent)",v:1308,note:"38% · Cash-like stability · Keep or replace with BND in Fidelity"},
+  {n:"US Companies (VOO/VTI equivalent)",v:1308,note:"38% · Replace with VOO in Fidelity"},
+  {n:"Foreign Companies (IXUS equivalent)",v:550,note:"16% · Keep or replace with IXUS directly"},
+  {n:"Up & Coming Markets (EEM equivalent)",v:207,note:"6% · Emerging markets exposure · Keep"},
+];
+
+const wbSellItems = [
+  {n:"GNW — Genworth Financial",v:44.51,reason:"3 shares · ~$14-15/share · Full position · Sell tomorrow"},
+  {n:"TGTX — TG Therapeutics",v:3.12,reason:"0.14544 fractional shares · P&L +$3.12 · Sell"},
+  {n:"JAAA — Janus Henderson AAA ETF",v:0.01,reason:"0.15823 fractional shares · Tiny · Sell"},
+  {n:"(TBA) — Unknown/Delisted",v:0.00,reason:"1 share · $0.00 value · Sell or abandon"},
+];
+
+// ── STATE ─────────────────────────────────────────────────────
+let soldST = new Set();
+let checkedIRA = new Set();
+let checkedSmart = new Set();
+let soldWB = new Set();
+try { const s=localStorage.getItem('stash_st'); if(s) soldST=new Set(JSON.parse(s)); } catch(e){}
+try { const s=localStorage.getItem('stash_ira'); if(s) checkedIRA=new Set(JSON.parse(s)); } catch(e){}
+try { const s=localStorage.getItem('stash_smart'); if(s) checkedSmart=new Set(JSON.parse(s)); } catch(e){}
+try { const s=localStorage.getItem('stash_wb'); if(s) soldWB=new Set(JSON.parse(s)); } catch(e){}
+
+function persist(){
+  try{
+    localStorage.setItem('stash_st',JSON.stringify([...soldST]));
+    localStorage.setItem('stash_ira',JSON.stringify([...checkedIRA]));
+    localStorage.setItem('stash_smart',JSON.stringify([...checkedSmart]));
+    localStorage.setItem('stash_wb',JSON.stringify([...soldWB]));
+  }catch(e){}
+}
+
+function fmtF(v){return '$'+parseFloat(v).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function fmtD(v){return '$'+Math.round(v).toLocaleString('en-US');}
+
+// ── BUILD PERSONAL SELL LIST ──────────────────────────────────
+function buildSTList(){
+  const container=document.getElementById('stSellList');
+  container.innerHTML='';
+  document.getElementById('stTot').textContent=stSellItems.length;
+  let raised=0;
+  stSellItems.forEach(item=>{
+    if(soldST.has(item.n)) raised+=item.v;
+    const div=document.createElement('div');
+    div.className='sell-card';
+    const checked=soldST.has(item.n);
+    div.innerHTML=`<div class="sell-row ${checked?'checked':''}" onclick="toggleST('${item.n.replace(/'/g,"\\'")}',this)"><div class="chkbox"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6.5L9 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="sinfo"><div class="sn">${item.n}</div><div class="sm">${item.reason}</div></div><div class="sv">${fmtF(item.v)}</div></div>`;
+    container.appendChild(div);
+  });
+  document.getElementById('stDone').textContent=soldST.size;
+  document.getElementById('stProg').style.width=(soldST.size/stSellItems.length*100)+'%';
+  document.getElementById('stRaisedDisplay').textContent=fmtD(raised);
+}
+
+function toggleST(name,row){
+  if(soldST.has(name)){soldST.delete(name);row.classList.remove('checked');}
+  else{soldST.add(name);row.classList.add('checked');}
+  persist(); buildSTList();
+}
+
+function clearST(){
+  soldST.clear(); persist(); buildSTList();
+}
+
+// ── BUILD IRA LIST ────────────────────────────────────────────
+function buildIRAList(){
+  const container=document.getElementById('iraList');
+  container.innerHTML='';
+  iraItems.forEach(item=>{
+    const div=document.createElement('div');
+    div.className='sell-card';
+    const checked=checkedIRA.has(item.n);
+    const dotClass=item.flag==='flag-sell'?'dot-sell':item.flag==='flag-overlap'?'dot-watch':'dot-keep';
+    const label=item.flag==='flag-sell'?'Sell in Fidelity':item.flag==='flag-overlap'?'Review':'→ Arrived';
+    div.innerHTML=`<div class="sell-row ${checked?'checked':''}" onclick="toggleIRA('${item.n.replace(/'/g,"\\'")}')"><div class="chkbox"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6.5L9 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="sinfo"><div class="sn">${item.n}</div><div class="sm">${item.note}</div></div><div class="pos-right" style="margin-left:8px"><div style="font-size:12px;font-weight:600;color:${item.flag==='flag-sell'?'#ff6b6b':item.flag==='flag-overlap'?'#f0a500':'#4ade80'}">${fmtF(item.v)}</div><span class="pos-flag ${item.flag}">${label}</span></div></div>`;
+    container.appendChild(div);
+  });
+}
+
+function toggleIRA(name){
+  if(checkedIRA.has(name)) checkedIRA.delete(name); else checkedIRA.add(name);
+  persist(); buildIRAList();
+}
+
+// ── BUILD SMART LIST ──────────────────────────────────────────
+function buildSmartList(){
+  const container=document.getElementById('smartList');
+  container.innerHTML='';
+  smartItems.forEach(item=>{
+    const div=document.createElement('div');
+    div.className='sell-card';
+    const checked=checkedSmart.has(item.n);
+    div.innerHTML=`<div class="sell-row ${checked?'checked':''}" onclick="toggleSmart('${item.n.replace(/'/g,"\\'")}')"><div class="chkbox"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6.5L9 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="sinfo"><div class="sn">${item.n}</div><div class="sm">${item.note}</div></div><div class="pos-right" style="margin-left:8px"><div style="font-size:12px;font-weight:600;color:#4ade80">${fmtF(item.v)}</div><span class="pos-flag flag-migrate">→ Arrived</span></div></div>`;
+    container.appendChild(div);
+  });
+}
+
+function toggleSmart(name){
+  if(checkedSmart.has(name)) checkedSmart.delete(name); else checkedSmart.add(name);
+  persist(); buildSmartList();
+}
+
+// ── BUILD WEBULL SELL LIST ────────────────────────────────────
+function buildWBList(){
+  const container=document.getElementById('wbSellList');
+  container.innerHTML='';
+  document.getElementById('wbTot').textContent=wbSellItems.length;
+  let raised=0;
+  wbSellItems.forEach(item=>{
+    if(soldWB.has(item.n)) raised+=item.v;
+    const div=document.createElement('div');
+    div.className='sell-card';
+    const checked=soldWB.has(item.n);
+    div.innerHTML=`<div class="sell-row ${checked?'checked':''}" onclick="toggleWB('${item.n.replace(/'/g,"\\'")}',this)"><div class="chkbox"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6.5L9 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="sinfo"><div class="sn">${item.n}</div><div class="sm">${item.reason}</div></div><div class="sv">${fmtF(item.v)}</div></div>`;
+    container.appendChild(div);
+  });
+  document.getElementById('wbDone').textContent=soldWB.size;
+  document.getElementById('wbProg').style.width=(soldWB.size/wbSellItems.length*100)+'%';
+  document.getElementById('wbRaisedDisplay').textContent=fmtF(raised);
+}
+
+function toggleWB(name,row){
+  if(soldWB.has(name)){soldWB.delete(name);row.classList.remove('checked');}
+  else{soldWB.add(name);row.classList.add('checked');}
+  persist(); buildWBList();
+}
+
+function clearWB(){
+  soldWB.clear(); persist(); buildWBList();
+}
+
+// ── NAV ───────────────────────────────────────────────────────
+function showTab(tab){
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>{b.classList.remove('active');b.style.color='';});
+  document.getElementById('tab-'+tab).classList.add('active');
+  const btn=document.getElementById('nav-'+tab);
+  if(btn){btn.classList.add('active');btn.style.color='#4ade80';}
+}
+
+// ── INIT ──────────────────────────────────────────────────────
+buildSTList();
+buildIRAList();
+buildSmartList();
+buildWBList();
+</script>
+
+<script>
+// PWA manifest + service worker inline
+const _manifest={name:'Stash → Fidelity',short_name:'Stash',start_url:'.',display:'standalone',background_color:'#0a0c12',theme_color:'#4ade80',icons:[{src:"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%230a0c12'/%3E%3Ctext y='.9em' font-size='80' x='10'%3E🌿%3C/text%3E%3C/svg%3E",sizes:'192x192',type:'image/svg+xml'}]};
+const _mBlob=new Blob([JSON.stringify(_manifest)],{type:'application/json'});
+const _mLink=document.createElement('link');
+_mLink.rel='manifest';_mLink.href=URL.createObjectURL(_mBlob);
+document.head.appendChild(_mLink);
+const _swCode=`const CACHE='stash-v1';self.addEventListener('install',e=>{self.skipWaiting();});self.addEventListener('activate',e=>{self.clients.claim();});self.addEventListener('fetch',e=>{e.respondWith(fetch(e.request).catch(()=>new Response('Offline')));});`;
+if('serviceWorker' in navigator){
+  const _swBlob=new Blob([_swCode],{type:'application/javascript'});
+  window.addEventListener('load',()=>{navigator.serviceWorker.register(URL.createObjectURL(_swBlob)).catch(()=>{});});
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Portfolio">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#00c896">
+<title>💰 My Portfolio — All Accounts</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{font-family:-apple-system,'Segoe UI',Arial,sans-serif;background:#0a0c12;color:#e0e0e0;min-height:100vh;padding:14px 12px 80px;}
+.container{max-width:780px;margin:0 auto;}
+h1{font-size:20px;font-weight:700;color:#00c896;}
+.subtitle{color:#555;font-size:10px;margin-bottom:12px;}
+
+/* GRAND TOTAL BANNER */
+.grand-banner{background:linear-gradient(135deg,#0d2e22,#0d1433);border:1px solid #00c896;border-radius:14px;padding:14px 16px;margin-bottom:12px;}
+.grand-row{display:flex;justify-content:space-between;align-items:center;}
+.grand-label{font-size:11px;color:#888;}
+.grand-val{font-size:28px;font-weight:800;color:#00c896;}
+.grand-sub{display:flex;gap:10px;margin-top:8px;padding-top:8px;border-top:1px solid #1a2a1a;}
+.grand-pill{font-size:10px;padding:3px 8px;border-radius:20px;font-weight:600;}
+.gp-green{background:#0d2e22;color:#00c896;border:1px solid #00c896;}
+.gp-purple{background:#0d1433;color:#a78bfa;border:1px solid #a78bfa;}
+.gp-orange{background:#2e1f00;color:#f0a500;border:1px solid #f0a500;}
+.gp-red{background:#2e0d0d;color:#ff6b6b;border:1px solid #ff6b6b;}
+
+/* ACCOUNT SUMMARY GRID */
+.acct-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:14px;}
+.acct-card{background:#1a1d2e;border:1px solid #2a2d3e;border-radius:10px;padding:10px 12px;cursor:pointer;}
+.acct-card.active{border-color:#00c896;}
+.acct-card:active{background:#1f2235;}
+.acct-name{font-size:11px;font-weight:700;color:#c0c8ff;}
+.acct-val{font-size:16px;font-weight:700;color:#00c896;margin-top:2px;}
+.acct-sub{font-size:9px;color:#555;margin-top:2px;}
+.acct-warn{font-size:8px;color:#f0a500;margin-top:2px;font-weight:600;}
+
+/* TABS */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#1a1d2e;border-top:1px solid #2a2d3e;display:flex;z-index:100;overflow-x:auto;}
+.nav-btn{flex:0 0 auto;padding:10px 10px;text-align:center;cursor:pointer;font-size:9px;color:#555;border:none;background:transparent;white-space:nowrap;}
+.nav-btn .nav-icon{font-size:16px;display:block;margin-bottom:2px;}
+.tab-content{display:none;}
+.tab-content.active{display:block;}
+
+/* SECTION HEADERS */
+.sec-hdr{font-size:10px;color:#444;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;margin:14px 0 7px;padding-left:2px;}
+
+/* POSITION CARDS */
+.pos-card{background:#1a1d2e;border:1px solid #2a2d3e;border-radius:10px;margin-bottom:7px;overflow:hidden;}
+.pos-row{display:flex;align-items:center;padding:10px 13px;}
+.pos-dot{width:7px;height:7px;border-radius:50%;margin-right:9px;flex-shrink:0;}
+.dot-sell{background:#ff4d4d;} .dot-keep{background:#00c896;} .dot-watch{background:#f0a500;} .dot-crypto{background:#a78bfa;}
+.pos-info{flex:1;}
+.pos-name{font-size:12px;color:#d0d0d0;font-weight:500;}
+.pos-meta{font-size:9px;color:#555;margin-top:1px;}
+.pos-right{text-align:right;}
+.pos-val{font-size:12px;font-weight:600;color:#00c896;}
+.pos-val.red{color:#ff6b6b;}
+.pos-val.orange{color:#f0a500;}
+.pos-flag{font-size:8px;padding:2px 6px;border-radius:10px;margin-top:3px;font-weight:600;display:inline-block;}
+.flag-sell{background:#2e0d0d;color:#ff6b6b;border:1px solid #ff4d4d;}
+.flag-overlap{background:#2e1f00;color:#f0a500;border:1px solid #f0a500;}
+.flag-keep{background:#0d2e22;color:#00c896;border:1px solid #00c896;}
+.flag-migrate{background:#0d1433;color:#a78bfa;border:1px solid #a78bfa;}
+
+/* SELL CHECKLIST */
+.sell-card{background:#1a1d2e;border:1px solid #2a2d3e;border-radius:10px;margin-bottom:7px;overflow:hidden;}
+.sell-row{display:flex;align-items:center;padding:11px 13px;cursor:pointer;user-select:none;}
+.sell-row:active{background:#1f2235;}
+.sell-row.checked{opacity:0.35;}
+.sell-row.checked .sn{text-decoration:line-through;color:#444;}
+.chkbox{width:20px;height:20px;border:2px solid #333;border-radius:4px;margin-right:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.sell-row.checked .chkbox{background:#ff4d4d;border-color:#ff4d4d;}
+.chkbox svg{display:none;}
+.sell-row.checked .chkbox svg{display:block;}
+.sinfo{flex:1;}
+.sn{font-size:12px;color:#d0d0d0;font-weight:500;}
+.sm{font-size:9px;color:#555;margin-top:1px;}
+.sv{font-size:12px;font-weight:600;color:#ff6b6b;white-space:nowrap;margin-left:8px;}
+
+/* STATS */
+.stat-row{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:5px;margin-bottom:10px;}
+.stat-box{background:#1a1d2e;border:1px solid #2a2d3e;border-radius:9px;padding:8px 5px;text-align:center;}
+.stat-box.editable{cursor:pointer;}
+.stat-box.editable:active{background:#1f2235;}
+.sv2{font-size:11px;font-weight:700;color:#00c896;}
+.sl{font-size:8px;color:#555;margin-top:2px;}
+.edit-hint{font-size:7px;color:#333;margin-top:1px;}
+
+/* CASH BANNER */
+.cash-ban{background:#1a1d2e;border:1px solid #f0a500;border-radius:10px;padding:10px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;}
+.cb-label{font-size:11px;color:#f0a500;font-weight:600;}
+.cb-val{font-size:20px;font-weight:700;color:#f0a500;}
+.cb-hint{font-size:9px;color:#555;margin-top:1px;}
+
+/* DIV BANNER */
+.div-ban{background:#1a1d2e;border:1px solid #a78bfa;border-radius:10px;padding:10px 14px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;}
+.db-label{font-size:11px;color:#a78bfa;font-weight:600;}
+.db-val{font-size:20px;font-weight:700;color:#a78bfa;}
+.db-sub{font-size:9px;color:#555;margin-top:1px;text-align:right;}
+
+/* MIGRATION PLAN */
+.mig-card{background:#1a1d2e;border:1px solid #2a2d3e;border-radius:10px;padding:13px 14px;margin-bottom:8px;}
+.mig-step{display:flex;gap:10px;align-items:flex-start;}
+.mig-num{font-size:13px;font-weight:800;color:#00c896;min-width:24px;}
+.mig-body{}
+.mig-title{font-size:12px;font-weight:700;color:#c0c8ff;margin-bottom:3px;}
+.mig-desc{font-size:10px;color:#777;line-height:1.5;}
+.mig-tag{font-size:9px;padding:2px 7px;border-radius:20px;font-weight:600;margin-top:5px;display:inline-block;}
+.mt-now{background:#0d2e22;color:#00c896;border:1px solid #00c896;}
+.mt-soon{background:#2e1f00;color:#f0a500;border:1px solid #f0a500;}
+.mt-later{background:#0d1433;color:#a78bfa;border:1px solid #a78bfa;}
+.mig-card{cursor:pointer;}
+.mig-card.done{opacity:0.4;}
+.mig-card.done .mig-num{color:#555;}
+.mig-done-chk{width:22px;height:22px;border:2px solid #333;border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-left:10px;}
+.mig-card.done .mig-done-chk{background:#00c896;border-color:#00c896;}
+.mig-done-chk svg{display:none;}
+.mig-card.done .mig-done-chk svg{display:block;}
+
+/* PROGRESS */
+.prog-wrap{background:#1e2130;border-radius:20px;height:6px;margin-bottom:4px;overflow:hidden;}
+.prog-bar{height:100%;background:linear-gradient(90deg,#ff4d4d,#ff9900);border-radius:20px;transition:width 0.4s;width:0%;}
+.prog-text{font-size:9px;color:#555;margin-bottom:12px;}
+.prog-text span{color:#ff4d4d;font-weight:600;}
+.cash-raised{background:#1a1d2e;border:1px solid #00c896;border-radius:10px;padding:10px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;}
+.cr-l{font-size:11px;color:#777;}
+.cr-v{font-size:16px;font-weight:700;color:#00c896;}
+.reset-btn{display:block;width:100%;margin-top:10px;padding:11px;background:#1a1d2e;border:1px solid #2a2d3e;border-radius:10px;color:#555;font-size:11px;cursor:pointer;text-align:center;}
+
+/* EDIT MODAL */
+.edit-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.75);z-index:200;align-items:center;justify-content:center;}
+.edit-overlay.open{display:flex;}
+.edit-modal{background:#1a1d2e;border:1px solid #2a2d3e;border-radius:14px;padding:20px 16px;width:265px;}
+.edit-modal h3{font-size:13px;color:#c0c8ff;margin-bottom:12px;}
+.edit-modal input{width:100%;background:#0f1117;border:1px solid #2a2d3e;border-radius:8px;padding:9px 11px;color:#e0e0e0;font-size:16px;margin-bottom:12px;}
+.edit-modal input:focus{outline:none;border-color:#00c896;}
+.edit-btns{display:flex;gap:7px;}
+.edit-save{flex:1;padding:9px;background:#00c896;border:none;border-radius:8px;color:#0f1117;font-weight:700;font-size:12px;cursor:pointer;}
+.edit-cancel{flex:1;padding:9px;background:#1f2235;border:1px solid #2a2d3e;border-radius:8px;color:#555;font-size:12px;cursor:pointer;}
+
+.fee-alert{background:#2e1f00;border:1px solid #f0a500;border-radius:10px;padding:10px 14px;margin-bottom:10px;font-size:10px;color:#f0a500;line-height:1.5;}
+.fee-alert strong{font-weight:700;}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>💰 All Accounts</h1>
+<div class="subtitle">Complete wealth tracker · Tap Total to edit</div>
+
+<!-- GRAND TOTAL -->
+<div class="grand-banner">
+  <div class="grand-row">
+    <div><div class="grand-label">Total Net Worth (All Accounts)</div><div class="grand-val" id="grandTotal">$50,312</div></div>
+    <div style="text-align:right"><div class="grand-label">Cash App only</div><div style="font-size:16px;font-weight:700;color:#7b8cff" id="cashAppVal">$31,053</div></div>
+  </div>
+  <div class="grand-sub">
+    <span class="grand-pill gp-green" id="gpDiv">~$448/yr div</span>
+    <span class="grand-pill gp-orange">💵 $1,437 liquid</span>
+    <span class="grand-pill gp-red">🔴 Sell list ready</span>
+    <span class="grand-pill gp-purple">→ Fidelity migration</span>
+  </div>
+</div>
+
+<!-- ACCOUNT SUMMARY -->
+<div class="acct-grid">
+  <div class="acct-card" onclick="showTab('cashapp')">
+    <div class="acct-name">📱 Cash App</div>
+    <div class="acct-val" id="caVal">$31,053</div>
+    <div class="acct-sub">130+ positions · 83.75% gain</div>
+  </div>
+  <div class="acct-card" onclick="showTab('stash')">
+    <div class="acct-name">🌿 Stash Personal</div>
+    <div class="acct-val">$4,844</div>
+    <div class="acct-sub">✅ Transfer initiated → Fidelity</div>
+    <div class="acct-warn" style="color:#00c896;">📅 Arriving ~July 7</div>
+  </div>
+  <div class="acct-card" onclick="showTab('stashira')">
+    <div class="acct-name">🏦 Stash IRA</div>
+    <div class="acct-val">$6,338</div>
+    <div class="acct-sub">✅ Transfer initiated → Fidelity IRA</div>
+    <div class="acct-warn" style="color:#00c896;">📅 Arriving ~July 7</div>
+  </div>
+  <div class="acct-card" onclick="showTab('smart')">
+    <div class="acct-name">🤖 Stash Smart</div>
+    <div class="acct-val">$3,443</div>
+    <div class="acct-sub">✅ Transfer initiated → Fidelity</div>
+    <div class="acct-warn" style="color:#00c896;">📅 Arriving ~July 7</div>
+  </div>
+  <div class="acct-card" onclick="showTab('acorns')">
+    <div class="acct-name">🌰 Acorns Invest</div>
+    <div class="acct-val">$2,128</div>
+    <div class="acct-sub">✅ Transfer initiated → Fidelity</div>
+    <div class="acct-warn" style="color:#00c896;">✅ Subscription cancelled</div>
+  </div>
+  <div class="acct-card" onclick="showTab('acornsira')">
+    <div class="acct-name">🌰 Acorns IRA</div>
+    <div class="acct-val">$1,074</div>
+    <div class="acct-sub">+55.49% · 3% IRA match active</div>
+    <div class="acct-warn">⚠️ Keep match — check vesting</div>
+  </div>
+  <div class="acct-card" onclick="showTab('robinhood')">
+    <div class="acct-name">🟢 Robinhood Gold</div>
+    <div class="acct-val">$506</div>
+    <div class="acct-sub">$5/mo Gold fee · ACATS eligible</div>
+    <div class="acct-warn">⚠️ $60/yr fee · Transfer NOW</div>
+  </div>
+  <div class="acct-card" onclick="showTab('crypto')">
+    <div class="acct-name">₿ Crypto</div>
+    <div class="acct-val">~$224</div>
+    <div class="acct-sub">✅ PayPal done · Crypto.com + Coinbase remain</div>
+    <div class="acct-warn">⚠️ Sell remaining → FBTC in Fidelity</div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div id="tab-overview" class="tab-content active">
+  <div class="stat-row">
+    <div class="stat-box editable" onclick="openEdit('total')">
+      <div class="sv2" id="statTotal">$50,312</div><div class="sl">Net Worth</div><div class="edit-hint">✏️ edit</div>
+    </div>
+    <div class="stat-box editable" onclick="openEdit('cash')">
+      <div class="sv2" style="color:#f0a500" id="statCash">$177</div><div class="sl">💵 Liquid Cash</div><div class="edit-hint">✏️ edit</div>
+    </div>
+    <div class="stat-box">
+      <div class="sv2" style="color:#a78bfa" id="statDiv">~$448</div><div class="sl">Div/yr</div>
+    </div>
+    <div class="stat-box editable" onclick="openEdit('gain')">
+      <div class="sv2" style="color:#7b8cff" id="statGain">83.75%</div><div class="sl">CA Gain</div><div class="edit-hint">✏️ edit</div>
+    </div>
+  </div>
+
+  <div class="cash-ban">
+    <div><div class="cb-label">💵 Total Liquid Cash</div><div class="cb-hint">Cash on hand + sell proceeds · Tap to edit base</div></div>
+    <div class="cb-val" id="cashDisplay">$177</div>
+  </div>
+
+  <div style="background:#1a1d2e;border:1px solid #00c896;border-radius:10px;padding:12px 14px;margin-bottom:10px;">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+      <div style="font-size:12px;font-weight:700;color:#00c896;">🏦 Money Sent to Fidelity</div>
+      <div style="font-size:18px;font-weight:800;color:#00c896;" id="fidelityTotal">$983.19</div>
+    </div>
+    <div style="font-size:9px;color:#555;margin-bottom:8px;">Tap Settle when arrived · ✏️ to edit · + to add new</div>
+    <div id="fidelityTransfers"></div>
+    <button class="reset-btn" style="margin-top:8px;" onclick="addTransfer()">+ Add Transfer</button>
+    <button class="reset-btn" style="margin-top:6px;color:#ff6b6b;border-color:#ff4d4d;" onclick="resetFidelity()">↺ Reset Fidelity Transfers to Default</button>
+  </div>
+
+  <div class="div-ban">
+    <div><div class="db-label">📅 All Accounts Dividends/yr</div><div style="font-size:9px;color:#444">Cash App + Stash + Acorns + RH</div></div>
+    <div><div class="db-val" id="divDisplay">~$448</div><div class="db-sub" id="divMonthly">~$37/mo</div></div>
+  </div>
+
+  <div class="sec-hdr">🗺️ Migration Roadmap — Tap to mark done</div>
+  <div class="mig-card" id="mig1" onclick="toggleMig(1)"><div class="mig-step"><div class="mig-num">1</div><div class="mig-body"><div class="mig-title">Cancel Robinhood Gold → ACATS to Fidelity</div><div class="mig-desc">Downgrade Gold to free plan first. Then initiate ACATS transfer from Fidelity — they pull your positions automatically. Full shares transfer in-kind (no tax event). Fractional shares (NVDA, META) sell first. Takes 5-7 days.</div><span class="mig-tag mt-now">Do this week</span></div><div class="mig-done-chk"><svg width="11" height="9" viewBox="0 0 11 9" fill="none"><path d="M1 4L4 7.5L10 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div></div>
+  <div class="mig-card" id="mig2" onclick="toggleMig(2)"><div class="mig-step"><div class="mig-num">2</div><div class="mig-body"><div class="mig-title">Sell Stash losers → Transfer to Fidelity</div><div class="mig-desc">FuelCell -87%, Moderna -56%, C3 AI -54%, Accenture -62%, Enphase -79%, Rivian -67% — sell these first. Then sell overlap positions (same stocks you hold in Cash App). Transfer proceeds to Fidelity monthly.</div><span class="mig-tag mt-now">Start this month</span></div><div class="mig-done-chk"><svg width="11" height="9" viewBox="0 0 11 9" fill="none"><path d="M1 4L4 7.5L10 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div></div>
+  <div class="mig-card" id="mig3" onclick="toggleMig(3)"><div class="mig-step"><div class="mig-num">3</div><div class="mig-body"><div class="mig-title">Transfer Acorns Invest to Fidelity</div><div class="mig-desc">VOO, IXUS, IJH, IJR all transfer via ACATS at no cost. Same ETFs, zero fees going forward vs $3/month now. Check Acorns 3% IRA match vesting before touching the IRA account.</div><span class="mig-tag mt-soon">Next 30-60 days</span></div><div class="mig-done-chk"><svg width="11" height="9" viewBox="0 0 11 9" fill="none"><path d="M1 4L4 7.5L10 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div></div>
+  <div class="mig-card" id="mig4" onclick="toggleMig(4)"><div class="mig-step"><div class="mig-num">4</div><div class="mig-body"><div class="mig-title">Consolidate all crypto → FBTC in Fidelity</div><div class="mig-desc">Sell everything in Crypto.com, PayPal, Coinbase except BTC. Convert all BTC to FBTC (Fidelity Bitcoin ETF) — same exposure, no wallet management, no platform fees, held alongside your stocks.</div><span class="mig-tag mt-soon">Next 30-60 days</span></div><div class="mig-done-chk"><svg width="11" height="9" viewBox="0 0 11 9" fill="none"><path d="M1 4L4 7.5L10 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div></div>
+  <div class="mig-card" id="mig5" onclick="toggleMig(5)"><div class="mig-step"><div class="mig-num">5</div><div class="mig-body"><div class="mig-title">Move Stash IRA → Fidelity IRA (direct transfer)</div><div class="mig-desc">Not a withdrawal — direct trustee-to-trustee transfer. No taxes, no penalties. Fidelity handles the paperwork. Diversify out of the 36% GOOGL concentration. Takes 1-2 weeks.</div><span class="mig-tag mt-later">60-90 days</span></div><div class="mig-done-chk"><svg width="11" height="9" viewBox="0 0 11 9" fill="none"><path d="M1 4L4 7.5L10 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div></div>
+  <div class="mig-card" id="mig6" onclick="toggleMig(6)"><div class="mig-step"><div class="mig-num">6</div><div class="mig-body"><div class="mig-title">Cancel Stash ($36/yr saved)</div><div class="mig-desc">Once all positions are transferred and IRA is moved, cancel Stash entirely. Also cancel Smart Portfolio — replace with a simple VOO + VYM combo in Fidelity for free.</div><span class="mig-tag mt-later">After steps 1-5</span></div><div class="mig-done-chk"><svg width="11" height="9" viewBox="0 0 11 9" fill="none"><path d="M1 4L4 7.5L10 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div></div></div>
+</div>
+
+<!-- CASH APP TAB -->
+<div id="tab-cashapp" class="tab-content">
+  <div style="background:linear-gradient(135deg,#0d2e22,#0d1433);border:1px solid #00c896;border-radius:12px;padding:12px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+    <div style="font-size:11px;color:#888;">📱 Cash App Total</div>
+    <div style="font-size:24px;font-weight:800;color:#00c896;">$30,780</div>
+  </div>
+  <div class="cash-ban">
+    <div><div class="cb-label">💵 Total Liquid Cash</div><div class="cb-hint">All sells across all accounts</div></div>
+      <div style="background:#1a1d2e;border:1px solid #f0a500;border-radius:10px;padding:10px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+    <div><div style="font-size:11px;color:#f0a500;font-weight:600;">💵 Total Liquid Cash</div><div style="font-size:9px;color:#555;margin-top:1px;">Updates as you check off sells</div></div>
+    <div class="liquid-display" style="font-size:20px;font-weight:700;color:#f0a500;">$1,437</div>
+  </div>
+  <div class="cb-val" id="caCashDisplay">$0</div>
+  </div>
+  <div style="background:#1a1d2e;border:1px solid #a78bfa;border-radius:10px;padding:10px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+    <div><div style="font-size:11px;color:#a78bfa;font-weight:600;">📅 Cash App Dividends</div><div style="font-size:9px;color:#444">Estimated annual income</div></div>
+    <div><div style="font-size:20px;font-weight:700;color:#a78bfa;">~$323/yr</div><div style="font-size:9px;color:#555;text-align:right;">~$27/mo</div></div>
+  </div>
+  <div class="sec-hdr">🔴 Cash App — Sell List (11 positions)</div>
+  <div class="prog-wrap"><div class="prog-bar" id="caSellProg"></div></div>
+  <div class="prog-text"><span id="caSellDone">0</span> of <span id="caSellTot">11</span> sold</div>
+  <div class="cash-raised"><div class="cr-l">💰 Cash raised</div><div class="cr-v" id="caSoldTotal">$0</div></div>
+  <div id="caSellList"></div>
+  <button class="reset-btn" onclick="clearSells('ca')">↺ Reset Cash App Sells</button>
+  <div class="sec-hdr" style="margin-top:18px;">📋 All Cash App Positions</div>
+  <div style="font-size:9px;color:#555;margin-bottom:8px;">Sell slowly to avoid large tax events · Sorted by urgency</div>
+  <div id="caAllList" style="max-height:60vh;overflow-y:auto;padding-right:4px;"></div>
+</div>
+
+<!-- STASH PERSONAL TAB -->
+<div id="tab-stash" class="tab-content">
+  <div style="background:#1a1d2e;border:1px solid #f0a500;border-radius:10px;padding:10px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+    <div><div style="font-size:11px;color:#f0a500;font-weight:600;">💵 Total Liquid Cash</div><div style="font-size:9px;color:#555;margin-top:1px;">Updates as you check off sells</div></div>
+    <div class="liquid-display" style="font-size:20px;font-weight:700;color:#f0a500;">$1,437</div>
+  </div>
+  <div style="background:linear-gradient(135deg,#0d2e22,#0d1433);border:1px solid #00c896;border-radius:12px;padding:12px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+    <div style="font-size:11px;color:#888;">🌿 Stash Personal Total</div>
+    <div style="font-size:24px;font-weight:800;color:#00c896;">$4,844</div>
+  </div>
+  <div class="fee-alert" style="border-color:#00c896;background:#0d2e22;color:#00c896;"><strong>✅ Stash Personal — Transfer Initiated.</strong> All 3 accounts in transit to Fidelity. Arriving ~July 7. Cancel subscription once transfers settle.</div>
+  <div style="background:#1a1d2e;border:1px solid #a78bfa;border-radius:10px;padding:10px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+    <div><div style="font-size:11px;color:#a78bfa;font-weight:600;">📅 Stash Personal Dividends</div><div style="font-size:9px;color:#444">Estimated annual income</div></div>
+    <div><div style="font-size:20px;font-weight:700;color:#a78bfa;">~$15/yr</div><div style="font-size:9px;color:#555;text-align:right;">~$1/mo</div></div>
+  </div>
+  <div class="sec-hdr">🔴 Stash Personal — Sell List</div>
+  <div class="prog-wrap"><div class="prog-bar" id="stSellProg"></div></div>
+  <div class="prog-text"><span id="stSellDone">0</span> of <span id="stSellTot">0</span> sold</div>
+  <div class="cash-raised"><div class="cr-l">💰 Cash raised from Stash</div><div class="cr-v" id="stSoldTotal">$0</div></div>
+  <div id="stSellList"></div>
+  <button class="reset-btn" onclick="clearSells('st')">↺ Reset Stash Sells</button>
+</div>
+
+<!-- STASH IRA TAB -->
+<div id="tab-stashira" class="tab-content">
+  <div style="background:#1a1d2e;border:1px solid #f0a500;border-radius:10px;padding:10px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+    <div><div style="font-size:11px;color:#f0a500;font-weight:600;">💵 Total Liquid Cash</div><div style="font-size:9px;color:#555;margin-top:1px;">Updates as you check off sells</div></div>
+    <div class="liquid-display" style="font-size:20px;font-weight:700;color:#f0a500;">$1,437</div>
+  </div>
+  <div style="background:linear-gradient(135deg,#0d2e22,#0d1433);border:1px solid #00c896;border-radius:12px;padding:12px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+    <div style="font-size:11px;color:#888;">🏦 Stash IRA Total</div>
+    <div style="font-size:24px;font-weight:800;color:#00c896;">$6,338</div>
+  </div>
+  <div class="fee-alert" style="border-color:#00c896;background:#0d2e22;color:#00c896;"><strong>✅ Stash IRA — Transfer Initiated.</strong> Direct trustee-to-trustee transfer in progress to Fidelity IRA. No tax event. Arriving ~July 7.</div>
+  <div style="background:#1a1d2e;border:1px solid #a78bfa;border-radius:10px;padding:10px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+    <div><div style="font-size:11px;color:#a78bfa;font-weight:600;">📅 Stash IRA Dividends</div><div style="font-size:9px;color:#444">Estimated annual income</div></div>
+    <div><div style="font-size:20px;font-weight:700;color:#a78bfa;">~$47/yr</div><div style="font-size:9px;color:#555;text-align:right;">~$4/mo</div></div>
+  </div>
+  <div class="sec-hdr">🏦 Stash IRA Holdings ($6,338)</div>
+  <div id="iraList"></div>
+</div>
+
+<!-- STASH SMART TAB -->
+<div id="tab-smart" class="tab-content">
+  <div style="background:#1a1d2e;border:1px solid #f0a500;border-radius:10px;padding:10px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+    <div><div style="font-size:11px;color:#f0a500;font-weight:600;">💵 Total Liquid Cash</div><div style="font-size:9px;color:#555;margin-top:1px;">Updates as you check off sells</div></div>
+    <div class="liquid-display" style="font-size:20px;font-weight:700;color:#f0a500;">$1,437</div>
+  </div>
+  <div style="background:linear-gradient(135deg,#0d2e22,#0d1433);border:1px solid #00c896;border-radius:12px;padding:12px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+    <div style="font-size:11px;color:#888;">🤖 Stash Smart Total</div>
+    <div style="font-size:24px;font-weight:800;color:#00c896;">$3,443</div>
+  </div>
+  <div class="fee-alert" style="border-color:#00c896;background:#0d2e22;color:#00c896;"><strong>✅ Stash Smart Portfolio — Transfer Initiated.</strong> In transit to Fidelity. Arriving ~July 7.</div>
+  <div style="background:#1a1d2e;border:1px solid #a78bfa;border-radius:10px;padding:10px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+    <div><div style="font-size:11px;color:#a78bfa;font-weight:600;">📅 Smart Portfolio Dividends</div><div style="font-size:9px;color:#444">Estimated annual income</div></div>
+    <div><div style="font-size:20px;font-weight:700;color:#a78bfa;">~$39/yr</div><div style="font-size:9px;color:#555;text-align:right;">~$3/mo</div></div>
+  </div>
+  <div class="sec-hdr">Holdings (automated)</div>
+  <div class="pos-card"><div class="pos-row"><div class="pos-dot dot-keep"></div><div class="pos-info"><div class="pos-name">Bonds (AGG equivalent)</div><div class="pos-meta">38% · ~$1,308</div></div><div class="pos-right"><div class="pos-val">$1,308</div><span class="pos-flag flag-keep">Keep/Transfer</span></div></div></div>
+  <div class="pos-card"><div class="pos-row"><div class="pos-dot dot-keep"></div><div class="pos-info"><div class="pos-name">US Companies (VOO/VTI equivalent)</div><div class="pos-meta">38% · ~$1,308</div></div><div class="pos-right"><div class="pos-val">$1,308</div><span class="pos-flag flag-keep">Keep/Transfer</span></div></div></div>
+  <div class="pos-card"><div class="pos-row"><div class="pos-dot dot-keep"></div><div class="pos-info"><div class="pos-name">Foreign Companies (IXUS equivalent)</div><div class="pos-meta">16% · ~$550</div></div><div class="pos-right"><div class="pos-val">$550</div><span class="pos-flag flag-keep">Keep/Transfer</span></div></div></div>
+  <div class="pos-card"><div class="pos-row"><div class="pos-dot dot-keep"></div><div class="pos-info"><div class="pos-name">Up &amp; Coming Markets (EEM equivalent)</div><div class="pos-meta">6% · ~$207</div></div><div class="pos-right"><div class="pos-val">$207</div><span class="pos-flag flag-keep">Keep/Transfer</span></div></div></div>
+</div>
+
+<!-- ACORNS TAB -->
+<div id="tab-acorns" class="tab-content">
+  <div style="background:#1a1d2e;border:1px solid #f0a500;border-radius:10px;padding:10px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+    <div><div style="font-size:11px;color:#f0a500;font-weight:600;">💵 Total Liquid Cash</div><div style="font-size:9px;color:#555;margin-top:1px;">Updates as you check off sells</div></div>
+    <div class="liquid-display" style="font-size:20px;font-weight:700;color:#f0a500;">$1,437</div>
+  </div>
+  <div style="background:linear-gradient(135deg,#0d2e22,#0d1433);border:1px solid #00c896;border-radius:12px;padding:12px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+    <div style="font-size:11px;color:#888;">🌰 Acorns Invest Total</div>
+    <div style="font-size:24px;font-weight:800;color:#00c896;">$2,128</div>
+  </div>
+  <div class="fee-alert" style="border-color:#00c896;background:#0d2e22;color:#00c896;"><strong>✅ Acorns Invest — Transfer Initiated.</strong> ACATS in progress to Fidelity. Holdings transfer in-kind — no tax event. Subscription cancelled.</div>
+  <div style="background:#1a1d2e;border:1px solid #a78bfa;border-radius:10px;padding:10px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+    <div><div style="font-size:11px;color:#a78bfa;font-weight:600;">📅 Acorns Invest Dividends</div><div style="font-size:9px;color:#444">Estimated annual income</div></div>
+    <div><div style="font-size:20px;font-weight:700;color:#a78bfa;">~$39/yr</div><div style="font-size:9px;color:#555;text-align:right;">~$3/mo</div></div>
+  </div>
+  <div class="sec-hdr">✅ Acorns Invest Holdings ($2,128) — Transferred to Fidelity</div>
+  <div id="acornsList"></div>
+</div>
+
+<!-- ACORNS IRA TAB -->
+<div id="tab-acornsira" class="tab-content">
+  <div style="background:#1a1d2e;border:1px solid #f0a500;border-radius:10px;padding:10px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+    <div><div style="font-size:11px;color:#f0a500;font-weight:600;">💵 Total Liquid Cash</div><div style="font-size:9px;color:#555;margin-top:1px;">Updates as you check off sells</div></div>
+    <div class="liquid-display" style="font-size:20px;font-weight:700;color:#f0a500;">$1,437</div>
+  </div>
+  <div style="background:linear-gradient(135deg,#0d2e22,#0d1433);border:1px solid #00c896;border-radius:12px;padding:12px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+    <div style="font-size:11px;color:#888;">🌰 Acorns IRA Total</div>
+    <div style="font-size:24px;font-weight:800;color:#00c896;">$1,074</div>
+  </div>
+  <div class="fee-alert" style="border-color:#00c896;background:#0d2e22;color:#00c896;"><strong>✅ Acorns IRA — Transfer Initiated.</strong> Rollover in progress to Fidelity IRA. Direct trustee-to-trustee — no taxes, no penalties.</div>
+  <div style="background:#1a1d2e;border:1px solid #a78bfa;border-radius:10px;padding:10px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+    <div><div style="font-size:11px;color:#a78bfa;font-weight:600;">📅 Acorns IRA Dividends</div><div style="font-size:9px;color:#444">Estimated annual income</div></div>
+    <div><div style="font-size:20px;font-weight:700;color:#a78bfa;">~$17/yr</div><div style="font-size:9px;color:#555;text-align:right;">~$1/mo</div></div>
+  </div>
+  <div class="sec-hdr">Acorns IRA Holdings ($1,074) — Transferred to Fidelity IRA</div>
+  <div id="acornsIRAList"></div>
+</div>
+
+<!-- ROBINHOOD TAB -->
+<div id="tab-robinhood" class="tab-content">
+  <div style="background:#1a1d2e;border:1px solid #f0a500;border-radius:10px;padding:10px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+    <div><div style="font-size:11px;color:#f0a500;font-weight:600;">💵 Total Liquid Cash</div><div style="font-size:9px;color:#555;margin-top:1px;">Updates as you check off sells</div></div>
+    <div class="liquid-display" style="font-size:20px;font-weight:700;color:#f0a500;">$1,437</div>
+  </div>
+  <div style="background:linear-gradient(135deg,#0d2e22,#0d1433);border:1px solid #00c896;border-radius:12px;padding:12px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+    <div style="font-size:11px;color:#888;">🟢 Robinhood Total</div>
+    <div style="font-size:24px;font-weight:800;color:#00c896;">$506</div>
+  </div>
+  <div class="fee-alert"><strong>🟢 Robinhood Gold costs $60/yr.</strong> Cancel Gold immediately. Then initiate ACATS transfer from Fidelity. Full shares transfer free. Fractional shares must be sold first.</div>
+  <div style="background:#1a1d2e;border:1px solid #a78bfa;border-radius:10px;padding:10px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+    <div><div style="font-size:11px;color:#a78bfa;font-weight:600;">📅 Robinhood Dividends</div><div style="font-size:9px;color:#444">Estimated annual income</div></div>
+    <div><div style="font-size:20px;font-weight:700;color:#a78bfa;">~$23/yr</div><div style="font-size:9px;color:#555;text-align:right;">~$2/mo</div></div>
+  </div>
+  <div class="sec-hdr">🔴 Robinhood — Sell First (fractional + tiny)</div>
+  <div id="rhSellList"></div>
+  <div class="sec-hdr">✅ Robinhood — Transfer via ACATS (full shares)</div>
+  <div id="rhKeepList"></div>
+</div>
+
+<!-- CRYPTO TAB -->
+<div id="tab-crypto" class="tab-content">
+  <div style="background:#1a1d2e;border:1px solid #f0a500;border-radius:10px;padding:10px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+    <div><div style="font-size:11px;color:#f0a500;font-weight:600;">💵 Total Liquid Cash</div><div style="font-size:9px;color:#555;margin-top:1px;">Updates as you check off sells</div></div>
+    <div class="liquid-display" style="font-size:20px;font-weight:700;color:#f0a500;">$1,437</div>
+  </div>
+  <div style="background:linear-gradient(135deg,#0d2e22,#0d1433);border:1px solid #00c896;border-radius:12px;padding:12px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+    <div style="font-size:11px;color:#888;">₿ Crypto Total</div>
+    <div style="font-size:24px;font-weight:800;color:#00c896;">~$224</div>
+  </div>
+  <div class="fee-alert"><strong>✅ PayPal crypto sold — $983.19 sent to bank → Fidelity.</strong> Remaining: Crypto.com, Robinhood crypto, and Coinbase still need to be cleared.</div>
+
+  <div class="sec-hdr">✅ PayPal — DONE ($983.19 to Fidelity)</div>
+  <div class="pos-card"><div class="pos-row"><div class="pos-dot dot-keep"></div><div class="pos-info"><div class="pos-name">PayPal Crypto + Balance</div><div class="pos-meta">All sold · Cash transferred to bank · En route to Fidelity</div></div><div class="pos-right"><div class="pos-val" style="color:#00c896">✓ Done</div><span class="pos-flag flag-keep">Complete</span></div></div></div>
+
+  <div style="background:#1a1d2e;border:1px solid #a78bfa;border-radius:10px;padding:10px 14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;">
+    <div><div style="font-size:11px;color:#a78bfa;font-weight:600;">📅 Crypto Dividends</div><div style="font-size:9px;color:#444">No dividends · Staking ~$0.96/mo</div></div>
+    <div><div style="font-size:20px;font-weight:700;color:#a78bfa;">$0/yr</div><div style="font-size:9px;color:#555;text-align:right;">~$1/mo staking</div></div>
+  </div>
+  <div id="cryptoList"></div>
+  <div class="sec-hdr">🎯 Target: Buy FBTC in Fidelity</div>
+  <div class="pos-card"><div class="pos-row"><div class="pos-dot dot-keep"></div><div class="pos-info"><div class="pos-name">FBTC — Fidelity Bitcoin ETF</div><div class="pos-meta">Same BTC exposure · No wallet · No fees · Held with stocks</div></div><div class="pos-right"><div class="pos-val">~$260</div><span class="pos-flag flag-migrate">Buy FBTC after selling crypto</span></div></div></div>
+</div>
+
+</div><!-- end container -->
+
+<!-- Edit Modal -->
+<div class="edit-overlay" id="editOverlay">
+  <div class="edit-modal">
+    <h3 id="editTitle">Edit Value</h3>
+    <input type="text" id="editInput" inputmode="decimal"/>
+    <div class="edit-btns">
+      <button class="edit-cancel" onclick="closeEdit()">Cancel</button>
+      <button class="edit-save" onclick="saveEdit()">Save</button>
+    </div>
+  </div>
+</div>
+
+<div class="bottom-nav">
+  <button class="nav-btn" id="nav-overview" onclick="showTab('overview')"><span class="nav-icon">🏠</span>Overview</button>
+  <button class="nav-btn" id="nav-cashapp" onclick="showTab('cashapp')"><span class="nav-icon">📱</span>Cash App</button>
+  <button class="nav-btn" id="nav-stash" onclick="showTab('stash')"><span class="nav-icon">🌿</span>Stash</button>
+  <button class="nav-btn" id="nav-stashira" onclick="showTab('stashira')"><span class="nav-icon">🏦</span>IRA</button>
+  <button class="nav-btn" id="nav-acorns" onclick="showTab('acorns')"><span class="nav-icon">🌰</span>Acorns</button>
+  <button class="nav-btn" id="nav-acornsira" onclick="showTab('acornsira')"><span class="nav-icon">🌰</span>Acorns IRA</button>
+  <button class="nav-btn" id="nav-robinhood" onclick="showTab('robinhood')"><span class="nav-icon">🟢</span>RH</button>
+  <button class="nav-btn" id="nav-crypto" onclick="showTab('crypto')"><span class="nav-icon">₿</span>Crypto</button>
+</div>
+
+<script>
+// ── CASH BALANCES PER ACCOUNT ──────────────────────────────────
+const accountCash = {
+  cashapp: 0,
+  stash: 19.28,
+  robinhood: 59.98,
+  acorns: 78.08,
+  acornsira: 0,
+  stashira: 0.99,
+  smart: 0,
+  bank: 5.00,
+  coinbase: 13.29,
+  crypto: 0,
+};
+const TOTAL_LIQUID = 176.62;
+const BASE_PORTFOLIO = 31053;
+const BASE_CASH = 0;
+
+// priority: 0=red (sell now), 1=yellow (sell soon), 2=green (sell last)
+const caSellItems = [
+  {n:"Alkami Technology",v:145.31,d:0,acct:"CA",reason:"Fintech SaaS, speculative, no dividend",priority:0},
+  {n:"Okta",v:10.14,d:0,acct:"CA",reason:"Cybersecurity overlap — CrowdStrike stronger",priority:0},
+  {n:"HubSpot",v:13.43,d:0,acct:"CA",reason:"CRM overlap with Salesforce, no dividend",priority:0},
+  {n:"Accenture",v:6.28,d:1.7,acct:"CA",reason:"Tiny, IT consulting, overlaps with tech ETFs",priority:0},
+  {n:"Unum Group",v:6.90,d:3.0,acct:"CA",reason:"Tiny insurance position, better names held",priority:1},
+  {n:"Nasdaq Inc.",v:7.17,d:1.3,acct:"CA",reason:"Tiny, better financial names already owned",priority:1},
+  {n:"Medtronic",v:6.86,d:3.4,acct:"CA",reason:"Medical devices, tiny, better healthcare held",priority:1},
+  {n:"iShares Core Dividend Growth",v:7.14,d:2.0,acct:"CA",reason:"Redundant — SCHD, VYM, HDV cover this",priority:1},
+  {n:"Vanguard FTSE Emerging Markets",v:5.97,d:3.0,acct:"CA",reason:"Redundant — iShares MSCI Brazil covers EM",priority:2},
+  {n:"Eastman Chemical",v:7.71,d:3.8,acct:"CA",reason:"Specialty chemicals, not core to any theme",priority:2},
+  {n:"J.M. Smucker",v:6.69,d:3.8,acct:"CA",reason:"Tiny food company, redundant consumer staple",priority:2},
+];
+
+// Stash Personal sell list
+const stSellItems = [
+  {n:"FuelCell Energy",v:4.98,reason:"Down -87% · No recovery path · Sell now"},
+  {n:"Moderna Inc",v:21.83,reason:"Down -56% · Speculative biotech · Sell"},
+  {n:"C3 AI Inc",v:9.15,reason:"Down -54% · AI hype stock · No dividend"},
+  {n:"Accenture PLC (Stash)",v:15.94,reason:"Down -62% · Also tiny in Cash App · Sell both"},
+  {n:"Enphase Energy",v:11.04,reason:"Down -79% · Clean energy speculation · Cut losses"},
+  {n:"Rivian Automotive",v:6.59,reason:"Down -67% · EV speculation · No path to profit"},
+  {n:"Voyager Therapeutics",v:13.88,reason:"Down -43% · Biotech speculation"},
+  {n:"NVIDIA (Stash)",v:78.69,reason:"Overlap with Cash App $1,393 position · Consolidate"},
+  {n:"Tesla (Stash)",v:26.88,reason:"Overlap with Cash App $1,271 position · Consolidate"},
+  {n:"Meta Platforms (Stash)",v:28.02,reason:"Overlap with Cash App $1,119 position · Consolidate"},
+  {n:"Amazon (Stash)",v:13.46,reason:"Overlap with Cash App $979 position · Consolidate"},
+  {n:"Walmart (Stash)",v:12.04,reason:"Overlap with Cash App $171 position · Consolidate"},
+  {n:"Netflix (Stash)",v:5.81,reason:"Overlap with Cash App $304 position · Consolidate"},
+  {n:"Costco (Stash)",v:5.08,reason:"Overlap with Cash App $146 position · Consolidate"},
+  {n:"Apple (Stash)",v:9.33,reason:"Overlap with Cash App $665 position · Consolidate"},
+  {n:"Alphabet/Google (Stash)",v:10.33,reason:"Overlap with Cash App $19 position · Consolidate"},
+  {n:"Zscaler (Stash)",v:1.24,reason:"Down -58% in Stash · Also in Cash App · Sell Stash"},
+  {n:"Comcast",v:0.08,reason:"Down -24% · Tiny · Media declining · Cut"},
+  {n:"Kraft Heinz",v:0.07,reason:"Down -33% · Consumer staple with debt issues"},
+  {n:"American Vanguard Corp",v:2.38,reason:"Down -52% · Specialty chemicals · Not core"},
+  {n:"IAMGOLD Corporation",v:2.26,reason:"Down -24% · Tiny gold miner · Covered by GDX"},
+];
+
+// Stash IRA holdings (display only — transfer, don't sell)
+const iraItems = [
+  {n:"Alphabet Inc. Class A (GOOGL)",v:2307.21,note:"36% of IRA — over-concentrated. Transfer to Fidelity IRA and diversify.",flag:"flag-overlap"},
+  {n:"iShares Core Dividend Growth ETF",v:746.14,note:"Strong dividend ETF · Keep — transfer to Fidelity IRA",flag:"flag-migrate"},
+  {n:"Meta Platforms",v:558.68,note:"Strong winner +140% · Keep — transfer",flag:"flag-migrate"},
+  {n:"American Innovators ETF",v:229.87,note:"Growth ETF · Keep — transfer",flag:"flag-migrate"},
+  {n:"Apple",v:217.22,note:"Strong winner +67% · Keep — transfer",flag:"flag-migrate"},
+  {n:"Linde PLC",v:204.58,note:"Industrial gas leader · Keep — transfer",flag:"flag-migrate"},
+  {n:"Abercrombie & Fitch",v:158.10,note:"Strong winner +198% · Keep — transfer",flag:"flag-migrate"},
+  {n:"Essential Europe ETF",v:154.09,note:"European exposure · Keep — transfer",flag:"flag-migrate"},
+  {n:"NVIDIA",v:141.61,note:"+301% · Keep — transfer",flag:"flag-migrate"},
+  {n:"Coca-Cola",v:128.79,note:"Dividend income · Keep — transfer",flag:"flag-migrate"},
+  {n:"Zscaler",v:125.21,note:"-21% · Consider selling before transfer",flag:"flag-overlap"},
+  {n:"Zoom Video",v:114.09,note:"-2.6% · Commoditized product · Consider selling",flag:"flag-overlap"},
+  {n:"Up & Coming ETF",v:106.54,note:"Small/mid growth · Keep — transfer",flag:"flag-migrate"},
+  {n:"TG Therapeutics",v:81.22,note:"+62% · Keep — transfer",flag:"flag-migrate"},
+  {n:"Roku Inc",v:82.13,note:"+36% · Keep — transfer",flag:"flag-migrate"},
+  {n:"ASML Holding",v:80.09,note:"+207% · Strong — transfer",flag:"flag-migrate"},
+  {n:"Occidental Petroleum",v:68.23,note:"-12% · Energy — transfer",flag:"flag-migrate"},
+  {n:"Coinbase Global",v:57.19,note:"-18% · Crypto exchange — consider selling",flag:"flag-overlap"},
+  {n:"Amazon",v:57.15,note:"Overlap w/ Cash App · Transfer anyway",flag:"flag-migrate"},
+  {n:"Stocks Nationwide ETF",v:55.87,note:"Broad US ETF · Transfer",flag:"flag-migrate"},
+  {n:"Ultra Clean Holdings",v:54.39,note:"+262% · Semiconductor · Transfer",flag:"flag-migrate"},
+  {n:"Emerging India ETF",v:53.19,note:"EM exposure · Transfer",flag:"flag-migrate"},
+  {n:"iShares MSCI World ETF",v:50.86,note:"Global ETF · Transfer",flag:"flag-migrate"},
+  {n:"New York Times",v:61.20,note:"+128% · Keep — transfer",flag:"flag-migrate"},
+  {n:"Micron Technology",v:32.24,note:"+168% · Semiconductor — transfer",flag:"flag-migrate"},
+  {n:"Lockheed Martin",v:37.72,note:"Defense — transfer",flag:"flag-migrate"},
+  {n:"Doximity Inc",v:7.68,note:"-48% · Healthcare SaaS · Consider selling",flag:"flag-overlap"},
+  {n:"Rivian Automotive (IRA)",v:6.59,note:"-67% · Sell before transfer",flag:"flag-sell"},
+  {n:"Enphase Energy (IRA)",v:11.04,note:"-79% · Sell before transfer",flag:"flag-sell"},
+  {n:"Trade Desk",v:5.50,note:"-63% · Sell before transfer",flag:"flag-sell"},
+];
+
+// Robinhood — sell first (fractional/tiny)
+const rhSellItems = [
+  {n:"NVDA (fractional 0.102633 shares)",v:192.79,reason:"Fractional — can't ACATS transfer · Sell → rebuy in Fidelity"},
+  {n:"META (fractional 0.005 shares)",v:551.40,reason:"Fractional — can't ACATS transfer · Sell → rebuy in Fidelity"},
+  {n:"GMEX (6 shares)",v:0.54,reason:"Penny stock · Worthless · Sell"},
+  {n:"NHTC (3 shares)",v:1.55,reason:"Tiny · Not core · Sell"},
+  {n:"ADTX (21 shares)",v:0.00,reason:"Zero value · Sell or abandon"},
+  {n:"OFS (2 shares)",v:3.39,reason:"Tiny BDC position · Sell"},
+  {n:"ICMB (4 shares)",v:1.20,reason:"Tiny · Sell"},
+  {n:"OXSQ (2 shares)",v:1.32,reason:"Tiny BDC · Sell"},
+  {n:"EXFY (1 share)",v:1.69,reason:"Tiny · Sell"},
+  {n:"RDW (1 share)",v:10.90,reason:"Small · Sell"},
+  {n:"BTC crypto (fractional)",v:6.36,reason:"Fractional crypto · Sell → FBTC"},
+  {n:"ETH crypto (fractional)",v:2.58,reason:"Fractional crypto · Sell"},
+];
+
+// Robinhood — keep (full shares, ACATS transfer)
+const rhKeepItems = [
+  {n:"ABBV — AbbVie",v:252.80,note:"Full share (0.0145) · Transfer to Fidelity"},
+  {n:"CVX — Chevron",v:171.80,note:"Full share (0.01) · Transfer to Fidelity"},
+  {n:"SAP",v:155.09,note:"Full share (0.01) · Transfer to Fidelity"},
+  {n:"CVLT — Commvault",v:140.04,note:"Full share (0.03) · Transfer to Fidelity"},
+  {n:"IGV — iShares Software ETF",v:88.00,note:"Full share (0.02) · Transfer to Fidelity"},
+  {n:"ATRO — Astronics",v:84.00,note:"Full share (1.02) · Transfer to Fidelity"},
+  {n:"KO — Coca-Cola",v:82.43,note:"Full share (0.105) · Transfer to Fidelity · Overlap Cash App"},
+  {n:"SPCX",v:152.92,note:"Full share (1.69) · Transfer to Fidelity"},
+  {n:"AGI — Alamos Gold",v:31.56,note:"Full share (0.1) · Transfer to Fidelity"},
+  {n:"WBI ETF",v:31.10,note:"Full share (0.05) · Transfer to Fidelity"},
+  {n:"PBR — Petrobras",v:16.34,note:"Full share (0.09) · Transfer to Fidelity"},
+  {n:"VOYG",v:29.38,note:"Full share (0.04) · Transfer to Fidelity"},
+];
+
+// ── STATE ──────────────────────────────────────────────────────
+let soldCA = new Set(), soldST = new Set(), soldRH = new Set();
+let manualTotal = null, manualGain = null, manualCash = 176.62;
+try {
+  const sc=localStorage.getItem('soldCA'); if(sc) soldCA=new Set(JSON.parse(sc));
+  const ss=localStorage.getItem('soldST'); if(ss) soldST=new Set(JSON.parse(ss));
+  const sr=localStorage.getItem('soldRH'); if(sr) soldRH=new Set(JSON.parse(sr));
+  const mt=localStorage.getItem('mTotal'); if(mt) manualTotal=parseFloat(mt);
+  const mg=localStorage.getItem('mGain'); if(mg) manualGain=mg;
+  const mc=localStorage.getItem('mCash'); if(mc) manualCash=parseFloat(mc);
+} catch(e){}
+
+function persist(){
+  try{
+    localStorage.setItem('soldCA',JSON.stringify([...soldCA]));
+    localStorage.setItem('soldST',JSON.stringify([...soldST]));
+    localStorage.setItem('soldRH',JSON.stringify([...soldRH]));
+    if(manualTotal!==null) localStorage.setItem('mTotal',manualTotal);
+    if(manualGain!==null) localStorage.setItem('mGain',manualGain);
+    localStorage.setItem('mCash',manualCash);
+  }catch(e){}
+}
+
+function fmtD(v){return '$'+Math.round(v).toLocaleString('en-US');}
+function fmtF(v){return '$'+parseFloat(v).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+
+function calcCADiv(){
+  // Fixed total — $340/yr is full CA portfolio dividend across all positions
+  // Sell list items are tiny; dividend stays $340 regardless of sells
+  return 448;
+}
+
+function updateStats(){
+  // --- CA sell checklist proceeds ---
+  let caChecklistRaised = 0;
+  caSellItems.forEach(i=>{ if(soldCA.has(i.n)) caChecklistRaised += i.v; });
+
+  // --- CA full position list proceeds (sell now=0 and sell soon=1 only, skip hold=2) ---
+  const caSellNames = new Set(caSellItems.map(i=>i.n));
+  let caAllRaised = 0;
+  caAllPositions.forEach(i=>{
+    if(soldCAAll.has(i.n) && !caSellNames.has(i.n) && i.p !== 2) caAllRaised += i.v;
+  });
+  const caRaised = caChecklistRaised + caAllRaised;
+
+  // --- Stash Personal sell proceeds ---
+  let stRaised = 0;
+  stSellItems.forEach(i=>{ if(soldST.has(i.n)) stRaised += i.v; });
+
+  // --- Stash IRA: only flag-sell and flag-overlap (not flag-migrate) ---
+  let iraRaised = 0;
+  iraItems.forEach(i=>{ if(checkedIRA.has(i.n) && i.flag !== 'flag-migrate') iraRaised += i.v; });
+
+  // --- Acorns Invest: only flag-sell and flag-overlap ---
+  let acornsRaised = 0;
+  acornsItems.forEach(i=>{ if(checkedAcorns.has(i.n) && i.flag !== 'flag-migrate') acornsRaised += i.v; });
+
+  // --- Acorns IRA: only flag-sell and flag-overlap ---
+  let acornsIRARaised = 0;
+  acornsIRAItems.forEach(i=>{ if(checkedAcornsIRA.has(i.n) && i.flag !== 'flag-migrate') acornsIRARaised += i.v; });
+
+  // --- Crypto: all are sells ---
+  let cryptoRaised = 0;
+  cryptoSellItems.forEach(i=>{ if(checkedCrypto.has(i.n)) cryptoRaised += i.v; });
+
+  // --- Robinhood sell list ---
+  let rhRaised = 0;
+  rhSellItems.forEach(i=>{ if(soldRH.has(i.n)) rhRaised += i.v; });
+
+  // --- Total liquid = base + all sell proceeds across every account ---
+  const baseCash = manualCash;
+  // Acorns + Stash accounts all transferred in-kind (not sold) — excluded from liquid cash
+  const totalLiquid = baseCash + caRaised + cryptoRaised + rhRaised;
+
+  const total = manualTotal !== null ? manualTotal : 50312;
+  const div = calcCADiv();
+
+  // Overview stats
+  document.getElementById('statTotal').textContent = fmtD(total);
+  document.getElementById('grandTotal').textContent = fmtD(total);
+  document.getElementById('statCash').textContent = fmtD(totalLiquid);
+  document.getElementById('cashDisplay').textContent = fmtD(totalLiquid);
+  // Update all liquid cash displays across every tab
+  document.querySelectorAll('.liquid-display').forEach(el => el.textContent = fmtD(totalLiquid));
+  document.getElementById('statDiv').textContent = '~$' + div;
+  document.getElementById('divDisplay').textContent = '~$' + div;
+  document.getElementById('divMonthly').textContent = '~$' + Math.round(div/12) + '/mo';
+  document.getElementById('statGain').textContent = manualGain || '83.75%';
+  document.getElementById('caVal').textContent = fmtD(BASE_PORTFOLIO);
+  document.getElementById('cashAppVal').textContent = fmtD(BASE_PORTFOLIO);
+
+  // Cash App tab — show CA sells only
+  document.getElementById('caCashDisplay').textContent = fmtD(totalLiquid);
+  document.getElementById('caSoldTotal').textContent = fmtD(caRaised);
+  document.getElementById('caSellDone').textContent = soldCA.size;
+  document.getElementById('caSellProg').style.width = (soldCA.size / caSellItems.length * 100) + '%';
+
+  // Stash tab
+  document.getElementById('stSoldTotal').textContent = fmtD(stRaised);
+  document.getElementById('stSellDone').textContent = soldST.size;
+  document.getElementById('stSellProg').style.width = (soldST.size / stSellItems.length * 100) + '%';
+}
+
+// ── BUILD SELL LIST ────────────────────────────────────────────
+function buildSellList(items, containerId, soldSet, key){
+  const container=document.getElementById(containerId);
+  document.getElementById(key+'SellTot') && (document.getElementById(key+'SellTot').textContent=items.length);
+  // For CA, add section headers by priority
+  if(key==='ca'){
+    const groups=[{label:'🔴 Sell Now',p:0},{label:'🟡 Sell Soon',p:1},{label:'🟢 Sell Last',p:2}];
+    groups.forEach(g=>{
+      const groupItems=items.filter(i=>i.priority===g.p);
+      if(!groupItems.length) return;
+      const hdr=document.createElement('div');
+      hdr.className='sec-hdr';
+      hdr.textContent=g.label;
+      container.appendChild(hdr);
+      groupItems.forEach(item=>{
+        const dotColor=g.p===0?'#ff4d4d':g.p===1?'#f0a500':'#00c896';
+        const div=document.createElement('div');
+        div.className='sell-card';
+        div.style.borderLeft=`3px solid ${dotColor}`;
+        const checked=soldSet.has(item.n);
+        div.innerHTML=`<div class="sell-row ${checked?'checked':''}" onclick="toggleSell('${key}','${item.n.replace(/'/g,"\\'")}',this)"><div class="chkbox"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6.5L9 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="sinfo"><div class="sn">${item.n}</div><div class="sm">${item.reason||item.note||''}</div></div><div class="sv">${fmtF(item.v||0)}</div></div>`;
+        container.appendChild(div);
+      });
+    });
+    return;
+  }
+  items.forEach(item=>{
+    const div=document.createElement('div');
+    div.className='sell-card';
+    const checked=soldSet.has(item.n);
+    div.innerHTML=`<div class="sell-row ${checked?'checked':''}" onclick="toggleSell('${key}','${item.n.replace(/'/g,"\\'")}',this)"><div class="chkbox"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6.5L9 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="sinfo"><div class="sn">${item.n}</div><div class="sm">${item.reason||item.note||''}</div></div><div class="sv">${fmtF(item.v||0)}</div></div>`;
+    container.appendChild(div);
+  });
+}
+
+function toggleSell(key,name,row){
+  const sets={'ca':soldCA,'st':soldST,'rh':soldRH};
+  const s=sets[key];
+  if(s.has(name)){s.delete(name);row.classList.remove('checked');}
+  else{s.add(name);row.classList.add('checked');}
+  persist(); updateStats();
+}
+
+function clearSells(key){
+  const sets={'ca':soldCA,'st':soldST,'rh':soldRH};
+  sets[key].clear(); persist();
+  const containers={'ca':'caSellList','st':'stSellList','rh':'rhSellList'};
+  document.getElementById(containers[key])?.querySelectorAll('.sell-row').forEach(r=>r.classList.remove('checked'));
+  updateStats();
+}
+
+// IRA checkbox state
+let checkedIRA = new Set();
+try { const ci=localStorage.getItem('checkedIRA'); if(ci) checkedIRA=new Set(JSON.parse(ci)); } catch(e){}
+function toggleIRA(name){
+  if(checkedIRA.has(name)) checkedIRA.delete(name); else checkedIRA.add(name);
+  try{localStorage.setItem('checkedIRA',JSON.stringify([...checkedIRA]));}catch(e){}
+  buildIRAList();
+  updateStats();
+}
+
+// Build IRA list
+function buildIRAList(){
+  const container=document.getElementById('iraList');
+  container.innerHTML='';
+  iraItems.forEach(item=>{
+    const div=document.createElement('div');
+    div.className='sell-card';
+    const checked=checkedIRA.has(item.n);
+    const dotClass=item.flag==='flag-sell'?'dot-sell':item.flag==='flag-overlap'?'dot-watch':'dot-keep';
+    const label=item.flag==='flag-sell'?'Sell First':item.flag==='flag-overlap'?'Review':'→ Transfer';
+    div.innerHTML=`<div class="sell-row ${checked?'checked':''}" onclick="toggleIRA('${item.n.replace(/'/g,"\'")}')"><div class="chkbox"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6.5L9 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="sinfo"><div class="sn">${item.n}</div><div class="sm">${item.note}</div></div><div class="pos-right" style="margin-left:8px"><div class="sv">${fmtF(item.v)}</div><span class="pos-flag ${item.flag}">${label}</span></div></div>`;
+    container.appendChild(div);
+  });
+}
+
+// Build RH lists
+function buildRHLists(){
+  const sellC=document.getElementById('rhSellList');
+  rhSellItems.forEach(item=>{
+    const div=document.createElement('div');
+    div.className='sell-card';
+    const checked=soldRH.has(item.n);
+    div.innerHTML=`<div class="sell-row ${checked?'checked':''}" onclick="toggleSell('rh','${item.n.replace(/'/g,"\\'")}',this)"><div class="chkbox"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6.5L9 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="sinfo"><div class="sn">${item.n}</div><div class="sm">${item.reason}</div></div><div class="sv">${fmtF(item.v)}</div></div>`;
+    sellC.appendChild(div);
+  });
+  const keepC=document.getElementById('rhKeepList');
+  rhKeepItems.forEach(item=>{
+    const div=document.createElement('div');
+    div.className='pos-card';
+    div.innerHTML=`<div class="pos-row"><div class="pos-dot dot-keep"></div><div class="pos-info"><div class="pos-name">${item.n}</div><div class="pos-meta">${item.note}</div></div><div class="pos-right"><div class="pos-val">${fmtF(item.v)}</div><span class="pos-flag flag-migrate">→ Fidelity</span></div></div>`;
+    keepC.appendChild(div);
+  });
+}
+
+// ── EDIT MODAL ─────────────────────────────────────────────────
+let editTarget=null;
+function openEdit(f){
+  editTarget=f;
+  const titles={total:'Edit Net Worth',gain:'Edit CA % Gain',cash:'Edit Total Liquid Cash'};
+  document.getElementById('editTitle').textContent=titles[f]||'Edit';
+  document.getElementById('editInput').value=f==='total'?(manualTotal||50312):f==='cash'?manualCash:(manualGain||'83.75%');
+  document.getElementById('editOverlay').classList.add('open');
+  setTimeout(()=>document.getElementById('editInput').focus(),100);
+}
+function closeEdit(){document.getElementById('editOverlay').classList.remove('open');}
+function saveEdit(){
+  const v=document.getElementById('editInput').value.trim();
+  if(editTarget==='total'){const n=parseFloat(v.replace(/[$,]/g,''));if(!isNaN(n)){manualTotal=n;persist();}}
+  else if(editTarget==='cash'){const n=parseFloat(v.replace(/[$,]/g,''));if(!isNaN(n)){manualCash=n;persist();}}
+  else{manualGain=v.includes('%')?v:v+'%';persist();}
+  closeEdit(); updateStats();
+}
+document.getElementById('editInput').addEventListener('keydown',e=>{if(e.key==='Enter')saveEdit();});
+
+// ── FIDELITY TRACKER ───────────────────────────────────────────
+let fidelityTransfers = [];
+try {
+  const ft = localStorage.getItem('fidelityTransfers');
+  if (ft) fidelityTransfers = JSON.parse(ft);
+  else fidelityTransfers = [{id:1, label:'PayPal Crypto', amount:983.19, settled:false},{id:2, label:'Crypto.com', amount:45.00, settled:false},{id:3, label:'Bank of America', amount:50.00, settled:false},{id:4, label:'Coinbase', amount:174.00, settled:false},{id:5, label:'Acorns Individual', amount:110.00, settled:false},{id:6, label:'Acorns Kids', amount:50.00, settled:false}];
+} catch(e) { fidelityTransfers = [{id:1, label:'PayPal Crypto', amount:983.19, settled:false},{id:2, label:'Crypto.com', amount:45.00, settled:false},{id:3, label:'Bank of America', amount:50.00, settled:false},{id:4, label:'Coinbase', amount:174.00, settled:false},{id:5, label:'Acorns Individual', amount:110.00, settled:false},{id:6, label:'Acorns Kids', amount:50.00, settled:false}]; }
+
+function saveFidelity(){ try{ localStorage.setItem('fidelityTransfers', JSON.stringify(fidelityTransfers)); }catch(e){} }
+
+function buildFidelityTracker(){
+  const container = document.getElementById('fidelityTransfers');
+  if(!container) return;
+  container.innerHTML = '';
+  let sent = 0, settled = 0;
+  fidelityTransfers.forEach(t => {
+    sent += t.amount;
+    if(t.settled) settled += t.amount;
+    const row = document.createElement('div');
+    row.style.cssText = 'display:flex;align-items:center;padding:8px 0;border-bottom:1px solid #1e2130;gap:8px;';
+    row.innerHTML = `
+      <div style="flex:1;">
+        <div style="font-size:12px;color:#d0d0d0;font-weight:500;">${t.label}</div>
+        <div style="font-size:9px;color:#555;margin-top:1px;">${t.settled?'✅ Settled in Fidelity':'⏳ In transit'}</div>
+      </div>
+      <div style="font-size:13px;font-weight:700;color:${t.settled?'#00c896':'#f0a500'};">$${t.amount.toFixed(2)}</div>
+      <button onclick="editTransfer(${t.id})" style="background:#1f2235;border:1px solid #2a2d3e;border-radius:6px;color:#888;font-size:10px;padding:4px 7px;cursor:pointer;">✏️</button>
+      <button onclick="toggleSettled(${t.id})" style="background:${t.settled?'#0d2e22':'#2e1f00'};border:1px solid ${t.settled?'#00c896':'#f0a500'};border-radius:6px;color:${t.settled?'#00c896':'#f0a500'};font-size:10px;padding:4px 7px;cursor:pointer;">${t.settled?'✓':'Settle'}</button>
+    `;
+    container.appendChild(row);
+  });
+  // Summary row
+  const summary = document.createElement('div');
+  summary.style.cssText = 'display:flex;justify-content:space-between;padding-top:8px;margin-top:2px;';
+  summary.innerHTML = `<div style="font-size:10px;color:#555;">Sent: <span style="color:#f0a500;font-weight:700;">$${sent.toFixed(2)}</span></div><div style="font-size:10px;color:#555;">Settled: <span style="color:#00c896;font-weight:700;">$${settled.toFixed(2)}</span></div>`;
+  container.appendChild(summary);
+  document.getElementById('fidelityTotal').textContent = '$'+sent.toFixed(2);
+  saveFidelity();
+}
+
+function toggleSettled(id){
+  const t = fidelityTransfers.find(x=>x.id===id);
+  if(t){ t.settled = !t.settled; buildFidelityTracker(); }
+}
+
+function editTransfer(id){
+  const t = fidelityTransfers.find(x=>x.id===id);
+  if(!t) return;
+  const label = prompt('Label:', t.label);
+  if(label===null) return;
+  const amt = parseFloat(prompt('Amount:', t.amount));
+  if(isNaN(amt)) return;
+  t.label = label; t.amount = amt;
+  buildFidelityTracker();
+}
+
+function resetFidelity(){
+  if(!confirm('Reset Fidelity transfers to default? This clears your saved data.')) return;
+  fidelityTransfers = [{id:1, label:'PayPal Crypto', amount:983.19, settled:false},{id:2, label:'Crypto.com', amount:45.00, settled:false},{id:3, label:'Bank of America', amount:50.00, settled:false},{id:4, label:'Coinbase', amount:174.00, settled:false},{id:5, label:'Acorns Individual', amount:110.00, settled:false},{id:6, label:'Acorns Kids', amount:50.00, settled:false}];
+  saveFidelity();
+  buildFidelityTracker();
+}
+
+function addTransfer(){
+  const label = prompt('Source (e.g. Stash sell proceeds):');
+  if(!label) return;
+  const amt = parseFloat(prompt('Amount:'));
+  if(isNaN(amt)) return;
+  const newId = fidelityTransfers.length ? Math.max(...fidelityTransfers.map(x=>x.id))+1 : 1;
+  fidelityTransfers.push({id:newId, label, amount:amt, settled:false});
+  buildFidelityTracker();
+}
+
+// ── NAV ────────────────────────────────────────────────────────
+function showTab(tab){
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>{b.classList.remove('active');b.style.color='';});
+  document.getElementById('tab-'+tab).classList.add('active');
+  const btn=document.getElementById('nav-'+tab);
+  if(btn){btn.classList.add('active');btn.style.color='#00c896';}
+  // Hide header elements when not on overview
+  const isOverview = tab==='overview';
+  document.querySelector('.grand-banner').style.display = isOverview?'':'none';
+  document.querySelector('.acct-grid').style.display = isOverview?'':'none';
+  document.querySelector('h1').style.display = isOverview?'':'none';
+  document.querySelector('.subtitle').style.display = isOverview?'':'none';
+}
+
+let doneMigs = new Set();
+try { const dm=localStorage.getItem('doneMigs'); if(dm) doneMigs=new Set(JSON.parse(dm)); } catch(e){}
+function toggleMig(n){
+  const card=document.getElementById('mig'+n);
+  if(doneMigs.has(n)){doneMigs.delete(n);card.classList.remove('done');}
+  else{doneMigs.add(n);card.classList.add('done');}
+  try{localStorage.setItem('doneMigs',JSON.stringify([...doneMigs]));}catch(e){}
+}
+function initMigs(){ doneMigs.forEach(n=>{ const c=document.getElementById('mig'+n); if(c) c.classList.add('done'); }); }
+
+// ── ACORNS DATA ─────────────────────────────────────────────────
+const acornsItems = [
+  {n:"VOO — Vanguard S&P 500 ETF",v:953,note:"44% · Large cap core",flag:"flag-migrate",label:"→ Fidelity"},
+  {n:"IXUS — iShares Intl ETF",v:486,note:"23% · International diversification",flag:"flag-migrate",label:"→ Fidelity"},
+  {n:"AGG — US Aggregate Bond ETF",v:273,note:"13% · Bond ballast",flag:"flag-migrate",label:"→ Fidelity"},
+  {n:"IJH — Mid Cap ETF",v:121,note:"6% · Mid cap exposure",flag:"flag-migrate",label:"→ Fidelity"},
+  {n:"ISTB — Short Term Bond ETF",v:113,note:"5% · Cash-like stability",flag:"flag-migrate",label:"→ Fidelity"},
+  {n:"IJR — Small Cap ETF",v:70,note:"3% · Small cap exposure",flag:"flag-migrate",label:"→ Fidelity"},
+  {n:"BITO — Bitcoin Strategy ETF",v:67,note:"3% · Speculative crypto ETF",flag:"flag-sell",label:"Sell → FBTC"},
+  {n:"Apple (AAPL) + NVIDIA (NVDA)",v:44,note:"Custom adds · Overlap w/ Cash App",flag:"flag-overlap",label:"Overlap"},
+];
+const acornsIRAItems = [
+  {n:"VOO — Vanguard S&P 500 ETF",v:579,note:"55% · Core holding",flag:"flag-migrate",label:"→ Fidelity IRA"},
+  {n:"IXUS — International ETF",v:323,note:"30% · International",flag:"flag-migrate",label:"→ Fidelity IRA"},
+  {n:"IJH — Mid Cap ETF",v:109,note:"10% · Mid cap",flag:"flag-migrate",label:"→ Fidelity IRA"},
+  {n:"IJR — Small Cap ETF",v:63,note:"6% · Small cap",flag:"flag-migrate",label:"→ Fidelity IRA"},
+];
+const cryptoSellItems = [
+  {n:"Crypto.com — Sell Everything & Close",v:45,note:"Sold · $45 transferred → Fidelity · Close account when settled",flag:"flag-sell",label:"⏳ In Transit",section:"✅ Crypto.com — Sold"},
+  {n:"Robinhood Crypto — BTC + ETH",v:9,note:"RH Crypto · Fractional positions",flag:"flag-sell",label:"Sell",section:"🔴 Robinhood Crypto (sell — fractional)"},
+  {n:"Coinbase — Crypto + Cash → Close",v:195.52,note:"$182.23 crypto + $13.29 cash · Sell all · Close account",flag:"flag-sell",label:"Sell All → Close",section:"🔴 Coinbase — Close Account ($195.52)"},
+];
+
+let checkedAcorns = new Set(), checkedAcornsIRA = new Set(), checkedCrypto = new Set();
+try {
+  const ca=localStorage.getItem('checkedAcorns'); if(ca) checkedAcorns=new Set(JSON.parse(ca));
+  const cai=localStorage.getItem('checkedAcornsIRA'); if(cai) checkedAcornsIRA=new Set(JSON.parse(cai));
+  const cc=localStorage.getItem('checkedCrypto'); if(cc) checkedCrypto=new Set(JSON.parse(cc));
+} catch(e){}
+
+function buildCheckList(items, containerId, checkedSet, storageKey, rebuildFn){
+  const container=document.getElementById(containerId);
+  if(!container) return;
+  container.innerHTML='';
+  let lastSection='';
+  items.forEach(item=>{
+    if(item.section && item.section!==lastSection){
+      lastSection=item.section;
+      const hdr=document.createElement('div');
+      hdr.className='sec-hdr';
+      hdr.textContent=item.section;
+      container.appendChild(hdr);
+    }
+    const div=document.createElement('div');
+    div.className='sell-card';
+    const checked=checkedSet.has(item.n);
+    const valStr=item.v?'$'+item.v:'';
+    div.innerHTML=`<div class="sell-row ${checked?'checked':''}" onclick="toggleCheck('${storageKey}','${item.n.replace(/'/g,"\'")}')"><div class="chkbox"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6.5L9 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="sinfo"><div class="sn">${item.n}</div><div class="sm">${item.note}</div></div><div class="pos-right" style="margin-left:8px"><div class="sv">${valStr}</div><span class="pos-flag ${item.flag}">${item.label}</span></div></div>`;
+    container.appendChild(div);
+  });
+}
+
+function toggleCheck(storageKey, name){
+  const map={acorns:checkedAcorns,acornsira:checkedAcornsIRA,crypto:checkedCrypto,ira:checkedIRA};
+  const s=map[storageKey];
+  if(!s) return;
+  if(s.has(name)) s.delete(name); else s.add(name);
+  try{localStorage.setItem('checked'+storageKey.charAt(0).toUpperCase()+storageKey.slice(1),JSON.stringify([...s]));}catch(e){}
+  buildAllCheckLists();
+  updateStats();
+}
+
+function buildAllCheckLists(){
+  buildIRAList();
+  buildCheckList(acornsItems,'acornsList',checkedAcorns,'acorns');
+  buildCheckList(acornsIRAItems,'acornsIRAList',checkedAcornsIRA,'acornsira');
+  buildCheckList(cryptoSellItems,'cryptoList',checkedCrypto,'crypto');
+}
+
+const caAllPositions = [
+  {n:"Okta",v:10.14,p:0},
+  {n:"HubSpot",v:13.43,p:0},
+  {n:"Alkami Technology",v:145.31,p:0},
+  {n:"Accenture",v:6.28,p:0},
+  {n:"Vanguard FTSE Emerging Markets",v:5.97,p:0},
+  {n:"iShares Core Dividend Growth",v:7.14,p:0},
+  {n:"Unum Group",v:6.9,p:0},
+  {n:"Eastman Chemical",v:7.71,p:0},
+  {n:"Medtronic",v:6.86,p:0},
+  {n:"Nasdaq Inc.",v:7.17,p:0},
+  {n:"J.M. Smucker",v:6.69,p:0},
+  {n:"DexCom",v:7.44,p:0},
+  {n:"General Mills",v:0.78,p:0},
+  {n:"AMD (tiny)",v:0.75,p:0},
+  {n:"GM (tiny)",v:0.27,p:0},
+  {n:"IHG (tiny)",v:0.27,p:0},
+  {n:"JETS ETF (tiny)",v:0.19,p:0},
+  {n:"BATT ETF (tiny)",v:1.16,p:0},
+  {n:"Starbucks",v:7.25,p:1},
+  {n:"Nike",v:6.86,p:1},
+  {n:"SLB",v:7.44,p:1},
+  {n:"NextEra Energy",v:7.31,p:1},
+  {n:"Duke Energy",v:7.12,p:1},
+  {n:"Jack Henry & Associates",v:7.11,p:1},
+  {n:"VanEck Semiconductor ETF",v:7.06,p:1},
+  {n:"EOG Resources",v:6.96,p:1},
+  {n:"PepsiCo",v:6.9,p:1},
+  {n:"Chubb",v:6.6,p:1},
+  {n:"Pfizer",v:6.57,p:1},
+  {n:"Equinix",v:6.49,p:1},
+  {n:"Quanta Services",v:6.43,p:1},
+  {n:"iShares Russell 2000",v:6.38,p:1},
+  {n:"AT&T",v:6.37,p:1},
+  {n:"BlackRock",v:6.35,p:1},
+  {n:"NiSource",v:6.35,p:1},
+  {n:"Entergy",v:6.32,p:1},
+  {n:"RTX",v:6.26,p:1},
+  {n:"GE Healthcare",v:6.24,p:1},
+  {n:"Williams Companies",v:6.21,p:1},
+  {n:"Procter & Gamble",v:6.19,p:1},
+  {n:"Eaton",v:6.02,p:1},
+  {n:"Vanguard FTSE Emerging Mkt",v:5.97,p:1},
+  {n:"Colgate-Palmolive",v:7.84,p:1},
+  {n:"Steel Dynamics",v:7.77,p:1},
+  {n:"American Express",v:7.72,p:1},
+  {n:"McKesson",v:7.72,p:1},
+  {n:"US Bank",v:8.33,p:1},
+  {n:"Edison International",v:8.25,p:1},
+  {n:"Merck",v:8.42,p:1},
+  {n:"Agnico Eagle Mines",v:8.8,p:1},
+  {n:"IBM",v:8.84,p:1},
+  {n:"iShares MSCI Brazil ETF",v:8.95,p:1},
+  {n:"Elevance Health",v:9.23,p:1},
+  {n:"Vanguard Growth ETF",v:9.77,p:1},
+  {n:"AeroVironment",v:10.12,p:1},
+  {n:"Vanguard Total Stock Market",v:10.19,p:1},
+  {n:"Freeport-McMoRan",v:10.21,p:1},
+  {n:"L3Harris Technologies",v:10.72,p:1},
+  {n:"Vanguard Info Tech ETF",v:11.54,p:1},
+  {n:"ASML Holding",v:12.2,p:1},
+  {n:"Host Hotels & Resorts",v:12.7,p:1},
+  {n:"Cheniere Energy",v:13.51,p:1},
+  {n:"Vertiv",v:16.36,p:1},
+  {n:"McDonald's",v:17.01,p:1},
+  {n:"Phillips 66",v:19.24,p:1},
+  {n:"UPS",v:19.79,p:1},
+  {n:"Alphabet Class C",v:19.96,p:1},
+  {n:"Charles Schwab",v:21.25,p:1},
+  {n:"Arista Networks",v:21.47,p:1},
+  {n:"Synopsys",v:23.09,p:1},
+  {n:"ServiceNow",v:23.13,p:1},
+  {n:"MP Materials",v:23.41,p:1},
+  {n:"Constellation Energy",v:23.42,p:1},
+  {n:"Invesco QQQ",v:23.72,p:1},
+  {n:"Alibaba",v:25.58,p:1},
+  {n:"Vanguard FTSE Developed Markets",v:26.6,p:1},
+  {n:"Salesforce",v:27.72,p:1},
+  {n:"Public Storage",v:28.37,p:1},
+  {n:"Capital One Financial",v:28.98,p:1},
+  {n:"SPDR Gold Trust",v:29.41,p:1},
+  {n:"Disney",v:30.15,p:1},
+  {n:"Verizon",v:31.64,p:1},
+  {n:"Lockheed Martin",v:33.18,p:1},
+  {n:"Oracle",v:34.31,p:1},
+  {n:"Taiwan MSCI ETF",v:35.83,p:1},
+  {n:"iShares Gold Trust",v:35.86,p:1},
+  {n:"SPDR S&P Oil & Gas",v:37.06,p:1},
+  {n:"Johnson & Johnson",v:40.31,p:1},
+  {n:"BNY Mellon",v:41.15,p:1},
+  {n:"AstraZeneca",v:42.02,p:1},
+  {n:"Bunge",v:42.14,p:1},
+  {n:"JPMorgan Chase",v:43.79,p:1},
+  {n:"FedEx",v:51.12,p:1},
+  {n:"Abbott",v:53.14,p:1},
+  {n:"Home Depot",v:54.61,p:1},
+  {n:"AB InBev",v:55.05,p:1},
+  {n:"ConocoPhillips",v:57.09,p:1},
+  {n:"Royal Gold",v:59.4,p:1},
+  {n:"Extra Space Storage",v:62.67,p:1},
+  {n:"VanEck Junior Gold Miners",v:68.66,p:1},
+  {n:"Devon Energy",v:71.32,p:1},
+  {n:"Thermo Fisher Scientific",v:71.86,p:1},
+  {n:"Assurant",v:73.13,p:1},
+  {n:"Cenovus Energy",v:73.88,p:1},
+  {n:"Tractor Supply",v:75.48,p:1},
+  {n:"Advanced Micro Devices",v:75.56,p:1},
+  {n:"Pembina Pipeline",v:76.46,p:1},
+  {n:"Micron Technology",v:80.46,p:1},
+  {n:"VanEck Gold Miners ETF",v:84.46,p:1},
+  {n:"iShares Core High Dividend",v:85.76,p:1},
+  {n:"Vanguard Real Estate ETF",v:86.24,p:1},
+  {n:"Honda Motor",v:89.56,p:1},
+  {n:"Uber Technologies",v:92.21,p:1},
+  {n:"Zscaler",v:92.28,p:1},
+  {n:"Mondelez",v:96.61,p:1},
+  {n:"Barrick Mining",v:97.93,p:1},
+  {n:"Live Nation",v:100.19,p:1},
+  {n:"Simon Property Group",v:102.58,p:1},
+  {n:"Blackstone",v:106.47,p:1},
+  {n:"Vanguard High Dividend Yield (VYM)",v:112.68,p:2},
+  {n:"Citigroup",v:114.28,p:2},
+  {n:"Vanguard S&P 500 ETF (VOO)",v:117.28,p:2},
+  {n:"Autodesk",v:119.08,p:2},
+  {n:"Alaska Air",v:120.17,p:2},
+  {n:"Wells Fargo",v:120.87,p:2},
+  {n:"Suncor Energy",v:128.01,p:2},
+  {n:"TechnipFMC",v:135.77,p:2},
+  {n:"Northrop Grumman",v:139.34,p:2},
+  {n:"Costco Wholesale",v:146.41,p:2},
+  {n:"Bank of America",v:147.1,p:2},
+  {n:"Deere",v:150.92,p:2},
+  {n:"VICI Properties",v:152.1,p:2},
+  {n:"Enterprise Products",v:152.85,p:2},
+  {n:"Vertex Pharmaceuticals",v:162.2,p:2},
+  {n:"Broadcom",v:169.03,p:2},
+  {n:"Taiwan Semiconductor (TSMC)",v:172.56,p:2},
+  {n:"Walmart",v:171.85,p:2},
+  {n:"Shell",v:192.12,p:2},
+  {n:"TKO Group",v:205.04,p:2},
+  {n:"Linde",v:208.78,p:2},
+  {n:"iShares Silver Trust",v:214.2,p:2},
+  {n:"Schwab US Dividend ETF (SCHD)",v:223.0,p:2},
+  {n:"Coca-Cola",v:228.76,p:2},
+  {n:"Chevron",v:233.56,p:2},
+  {n:"Marathon Petroleum",v:241.32,p:2},
+  {n:"AbbVie",v:245.21,p:2},
+  {n:"Mastercard",v:250.48,p:2},
+  {n:"Targa Resources",v:251.03,p:2},
+  {n:"Visa",v:267.45,p:2},
+  {n:"Western Alliance",v:272.27,p:2},
+  {n:"General Motors",v:303.65,p:2},
+  {n:"Netflix",v:304.74,p:2},
+  {n:"Kratos Defense",v:311.12,p:2},
+  {n:"Ares Capital (ARCC)",v:323.25,p:2},
+  {n:"Take-Two Interactive",v:342.44,p:2},
+  {n:"MercadoLibre",v:349.32,p:2},
+  {n:"Exxon Mobil",v:405.23,p:2},
+  {n:"Diamondback Energy",v:430.76,p:2},
+  {n:"Microsoft",v:432.65,p:2},
+  {n:"Palo Alto Networks",v:461.74,p:2},
+  {n:"Chesapeake Energy",v:550.21,p:2},
+  {n:"Vistra Corp",v:554.81,p:2},
+  {n:"Cameco",v:593.68,p:2},
+  {n:"Spotify",v:634.67,p:2},
+  {n:"Apple",v:665.19,p:2},
+  {n:"GE Vernova",v:705.26,p:2},
+  {n:"GE Aerospace",v:724.41,p:2},
+  {n:"nVent Electric",v:796.47,p:2},
+  {n:"Eli Lilly",v:832.12,p:2},
+  {n:"Howmet Aerospace",v:976.16,p:2},
+  {n:"Amazon",v:979.47,p:2},
+  {n:"Lam Research",v:1010.76,p:2},
+  {n:"Marvell Technology",v:1098.66,p:2},
+  {n:"Meta",v:1119.84,p:2},
+  {n:"CrowdStrike",v:1158.84,p:2},
+  {n:"TG Therapeutics",v:1298.3,p:2},
+  {n:"NVIDIA",v:1393.74,p:2},
+  {n:"Tesla",v:1271.52,p:2},
+  {n:"Dycom Industries",v:1553.23,p:2},
+];
+
+
+// CA All Positions sold set
+let soldCAAll = new Set();
+try { const s=localStorage.getItem('soldCAAll'); if(s) soldCAAll=new Set(JSON.parse(s)); } catch(e){}
+function toggleCAAll(name){
+  if(soldCAAll.has(name)) soldCAAll.delete(name); else soldCAAll.add(name);
+  try{localStorage.setItem('soldCAAll',JSON.stringify([...soldCAAll]));}catch(e){}
+  buildCAAllPositions();
+  updateStats();
+}
+
+function buildCAAllPositions(){
+  const container = document.getElementById('caAllList');
+  if(!container) return;
+  container.innerHTML = '';
+  const groups = [
+    {label:'🔴 Sell Now', p:0, color:'#ff4d4d', border:'#ff4d4d'},
+    {label:'🟡 Sell Soon', p:1, color:'#f0a500', border:'#f0a500'},
+    {label:'🟢 Hold', p:2, color:'#00c896', border:'#00c896'},
+  ];
+  groups.forEach(g => {
+    const items = caAllPositions.filter(i=>i.p===g.p);
+    const remaining = items.filter(i=>!soldCAAll.has(i.n));
+    const sold = items.filter(i=>soldCAAll.has(i.n));
+    const total = remaining.reduce((s,i)=>s+i.v,0);
+    const hdr = document.createElement('div');
+    hdr.style.cssText = `font-size:10px;color:${g.color};font-weight:700;letter-spacing:0.5px;text-transform:uppercase;margin:14px 0 7px;padding-left:2px;`;
+    hdr.textContent = `${g.label} (${remaining.length} remaining · $${Math.round(total).toLocaleString()})`;
+    container.appendChild(hdr);
+    // Show unsold first, then sold (dimmed)
+    [...remaining, ...sold].forEach(item => {
+      const isSold = soldCAAll.has(item.n);
+      const div = document.createElement('div');
+      div.style.cssText = `background:#1a1d2e;border:1px solid #2a2d3e;border-left:3px solid ${isSold?'#333':g.border};border-radius:10px;margin-bottom:5px;padding:9px 13px;display:flex;align-items:center;cursor:pointer;opacity:${isSold?'0.3':'1'};user-select:none;`;
+      div.onclick = ()=>toggleCAAll(item.n);
+      div.innerHTML = `
+        <div style="width:20px;height:20px;border:2px solid ${isSold?'transparent':'#333'};border-radius:4px;margin-right:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:${isSold?'#ff4d4d':'transparent'};">
+          ${isSold?'<svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6.5L9 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>':''}
+        </div>
+        <div style="flex:1;font-size:12px;color:${isSold?'#444':'#d0d0d0'};${isSold?'text-decoration:line-through;':''};">${item.n}</div>
+        <div style="font-size:12px;font-weight:600;color:${isSold?'#444':g.color};">$${item.v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}</div>`;
+      container.appendChild(div);
+    });
+  });
+}
+
+// ── INIT ────────────────────────────────────────────────────────
+buildSellList(caSellItems,'caSellList',soldCA,'ca');
+buildCAAllPositions();
+buildSellList(stSellItems,'stSellList',soldST,'st');
+document.getElementById('stSellTot').textContent=stSellItems.length;
+buildAllCheckLists();
+buildRHLists();
+buildFidelityTracker();
+initMigs();
+showTab('overview');
+updateStats();
+</script>
+<script>
+// Inline PWA manifest
+const _manifest = {
+  name:"My Portfolio",short_name:"Portfolio",
+  description:"All accounts portfolio tracker",
+  start_url:"/",display:"standalone",
+  background_color:"#0a0c12",theme_color:"#00c896",
+  orientation:"portrait",
+  icons:[{src:"data:image/png;base64,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",sizes:"512x512",type:"image/png",purpose:"any maskable"}]
+};
+const _mBlob=new Blob([JSON.stringify(_manifest)],{type:'application/json'});
+const _mLink=document.createElement('link');
+_mLink.rel='manifest';_mLink.href=URL.createObjectURL(_mBlob);
+document.head.appendChild(_mLink);
+// Inline service worker
+const _swCode=`const CACHE='portfolio-v2';
+self.addEventListener('install',e=>{self.skipWaiting();});
+self.addEventListener('activate',e=>{self.clients.claim();});
+self.addEventListener('fetch',e=>{e.respondWith(fetch(e.request).catch(()=>new Response('Offline')));}); `;
+if('serviceWorker' in navigator){
+  const _swBlob=new Blob([_swCode],{type:'application/javascript'});
+  window.addEventListener('load',()=>{navigator.serviceWorker.register(URL.createObjectURL(_swBlob)).catch(()=>{});});
+}
+</script>
+</body>
+</html>
