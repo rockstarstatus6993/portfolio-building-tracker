@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Sell List">
+<meta name="theme-color" content="#ff4d4d">
+<title>🔴 Master Sell List</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{font-family:-apple-system,'Segoe UI',Arial,sans-serif;background:#0a0c12;color:#e0e0e0;min-height:100vh;padding:14px 12px 90px;}
+.container{max-width:780px;margin:0 auto;}
+
+/* STICKY CASH BANNER */
+.cash-banner{position:sticky;top:0;z-index:50;background:#0a0c12;padding:10px 0 8px;}
+.cash-inner{background:linear-gradient(135deg,#1a0d0d,#0a0c12);border:1px solid #ff4d4d;border-radius:14px;padding:13px 16px;display:flex;justify-content:space-between;align-items:center;}
+.ci-left .label{font-size:10px;color:#555;text-transform:uppercase;letter-spacing:0.5px;}
+.ci-left .amount{font-size:32px;font-weight:800;color:#ff6b6b;letter-spacing:-1px;transition:all 0.3s;}
+.ci-left .sub{font-size:9px;color:#555;margin-top:1px;}
+.ci-right{text-align:right;}
+.ci-right .label{font-size:10px;color:#555;}
+.ci-right .done{font-size:20px;font-weight:800;color:#4ade80;}
+.ci-right .total{font-size:10px;color:#555;}
+
+/* PROGRESS */
+.prog-wrap{background:#1e2130;border-radius:20px;height:5px;margin:8px 0 4px;overflow:hidden;}
+.prog-bar{height:100%;background:linear-gradient(90deg,#ff4d4d,#ff9900);border-radius:20px;transition:width 0.4s;width:0%;}
+.prog-text{font-size:9px;color:#555;margin-bottom:12px;}
+.prog-text span{color:#ff6b6b;font-weight:600;}
+
+/* SECTION */
+.sec-hdr{font-size:10px;color:#444;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;margin:14px 0 7px;padding-left:2px;display:flex;justify-content:space-between;align-items:center;}
+.sec-count{color:#ff6b6b;font-size:9px;}
+
+/* CARDS */
+.sell-card{background:#13161f;border:1px solid #1e2130;border-radius:11px;margin-bottom:7px;overflow:hidden;}
+.sell-row{display:flex;align-items:center;padding:11px 13px;cursor:pointer;user-select:none;}
+.sell-row:active{background:#1a1d2e;}
+.sell-row.checked{opacity:0.3;}
+.sell-row.checked .sn{text-decoration:line-through;color:#333;}
+.chkbox{width:22px;height:22px;border:2px solid #2a2d3e;border-radius:5px;margin-right:11px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
+.sell-row.checked .chkbox{background:#ff4d4d;border-color:#ff4d4d;}
+.chkbox svg{display:none;}
+.sell-row.checked .chkbox svg{display:block;}
+.sinfo{flex:1;}
+.sn{font-size:12px;color:#d0d0d0;font-weight:600;transition:all 0.2s;}
+.sm{font-size:9px;color:#555;margin-top:2px;line-height:1.4;}
+.stag{display:inline-block;font-size:7px;font-weight:700;padding:2px 5px;border-radius:8px;margin-right:3px;margin-top:3px;}
+.t-fidelity{background:#0d1433;color:#a78bfa;border:1px solid #a78bfa;}
+.t-cashapp{background:#0d2233;color:#38bdf8;border:1px solid #38bdf8;}
+.t-stash{background:#0d2e0d;color:#4ade80;border:1px solid #4ade80;}
+.t-rh{background:#2e2200;color:#facc15;border:1px solid #facc15;}
+.t-webull{background:#1a1000;color:#f97316;border:1px solid #f97316;}
+.t-overlap{background:#2e1f00;color:#f0a500;border:1px solid #f0a500;}
+.sv{font-size:13px;font-weight:700;color:#ff6b6b;white-space:nowrap;margin-left:8px;}
+.sell-row.checked .sv{color:#333;}
+
+/* NAV */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#1a1d2e;border-top:1px solid #2a2d3e;display:flex;overflow-x:auto;z-index:100;}
+.nav-btn{flex:0 0 auto;padding:10px 12px;text-align:center;cursor:pointer;font-size:9px;color:#555;border:none;background:transparent;white-space:nowrap;}
+.nav-btn .nav-icon{font-size:16px;display:block;margin-bottom:2px;}
+.nav-btn.active{color:#ff6b6b;}
+.tab-content{display:none;}
+.tab-content.active{display:block;}
+
+.reset-btn{display:block;width:100%;margin-top:10px;padding:11px;background:#1a1d2e;border:1px solid #2a2d3e;border-radius:10px;color:#555;font-size:11px;cursor:pointer;text-align:center;}
+.empty{font-size:11px;color:#333;text-align:center;padding:20px;font-style:italic;}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- STICKY CASH BANNER -->
+<div class="cash-banner">
+  <div class="cash-inner">
+    <div class="ci-left">
+      <div class="label">💰 Cash Raised</div>
+      <div class="amount" id="cashTotal">$0</div>
+      <div class="sub" id="cashSub">Check items off as you sell</div>
+    </div>
+    <div class="ci-right">
+      <div class="label">Sold</div>
+      <div class="done" id="doneCount">0</div>
+      <div class="total" id="totalCount">of 0</div>
+    </div>
+  </div>
+  <div class="prog-wrap"><div class="prog-bar" id="progBar"></div></div>
+  <div class="prog-text"><span id="progPct">0%</span> complete · <span id="remainVal">$0</span> remaining</div>
+</div>
+
+<!-- ALL TAB -->
+<div id="tab-all" class="tab-content active">
+  <div id="allList"></div>
+  <button class="reset-btn" onclick="resetAll()">↺ Reset All</button>
+</div>
+
+<!-- FIDELITY TAB -->
+<div id="tab-fidelity" class="tab-content">
+  <div id="fidelityList"></div>
+  <button class="reset-btn" onclick="resetSection('fidelity')">↺ Reset Fidelity</button>
+</div>
+
+<!-- CASH APP TAB -->
+<div id="tab-cashapp" class="tab-content">
+  <div id="cashappList"></div>
+  <button class="reset-btn" onclick="resetSection('cashapp')">↺ Reset Cash App</button>
+</div>
+
+<!-- STASH TAB -->
+<div id="tab-stash" class="tab-content">
+  <div id="stashList"></div>
+  <button class="reset-btn" onclick="resetSection('stash')">↺ Reset Stash</button>
+</div>
+
+<!-- RH TAB -->
+<div id="tab-rh" class="tab-content">
+  <div id="rhList"></div>
+  <button class="reset-btn" onclick="resetSection('rh')">↺ Reset RH</button>
+</div>
+
+<!-- WEBULL TAB -->
+<div id="tab-webull" class="tab-content">
+  <div id="webullList"></div>
+  <button class="reset-btn" onclick="resetSection('webull')">↺ Reset Webull</button>
+</div>
+
+<!-- OVERLAP TAB -->
+<div id="tab-overlap" class="tab-content">
+  <div id="overlapList"></div>
+  <button class="reset-btn" onclick="resetSection('overlap')">↺ Reset Overlaps</button>
+</div>
+
+</div><!-- end container -->
+
+<div class="bottom-nav">
+  <button class="nav-btn active" id="nav-all" onclick="showTab('all')"><span class="nav-icon">🔴</span>All</button>
+  <button class="nav-btn" id="nav-fidelity" onclick="showTab('fidelity')"><span class="nav-icon">🏦</span>Fidelity</button>
+  <button class="nav-btn" id="nav-cashapp" onclick="showTab('cashapp')"><span class="nav-icon">📱</span>Cash App</button>
+  <button class="nav-btn" id="nav-stash" onclick="showTab('stash')"><span class="nav-icon">🌿</span>Stash</button>
+  <button class="nav-btn" id="nav-rh" onclick="showTab('rh')"><span class="nav-icon">🟢</span>RH</button>
+  <button class="nav-btn" id="nav-webull" onclick="showTab('webull')"><span class="nav-icon">📈</span>Webull</button>
+  <button class="nav-btn" id="nav-overlap" onclick="showTab('overlap')"><span class="nav-icon">⚠️</span>Overlaps</button>
+</div>
+
+<script>
+// ── ALL SELL ITEMS ────────────────────────────────────────────
+const allItems = [
+
+  // FIDELITY — sell today
+  {id:'f1', n:'RIOT — Riot Platforms', v:21.69, acct:'fidelity', reason:'Crypto miner · -9.4% · Doesn\'t fit dividend strategy · Sell in Fidelity'},
+  {id:'f2', n:'SVNDY — Seven & I Holdings', v:24.88, acct:'fidelity', reason:'Tiny foreign position · Not worth holding · Sell in Fidelity'},
+  {id:'f3', n:'VYGR — Voyager Therapeutics', v:11.46, acct:'fidelity', reason:'Speculative biotech · Tiny · Sell in Fidelity'},
+  {id:'f4', n:'GOVT — iShares US Treasury Bond', v:22.66, acct:'fidelity', reason:'Too small to matter · You have TFLO already · Redundant'},
+
+  // WEBULL — sell tomorrow
+  {id:'w1', n:'GNW — Genworth Financial', v:44.51, acct:'webull', reason:'3 shares · ~$15/share · Sell tomorrow before closing account'},
+  {id:'w2', n:'TGTX — TG Therapeutics', v:3.12, acct:'webull', reason:'Fractional 0.14544 shares · Sell tomorrow'},
+  {id:'w3', n:'JAAA — Janus Henderson AAA ETF', v:0.01, acct:'webull', reason:'Fractional 0.15823 shares · Sell tomorrow'},
+  {id:'w4', n:'TBA — Unknown/Delisted', v:0.00, acct:'webull', reason:'$0 value · Sell or abandon · Needed to close account'},
+
+  // CASH APP — sell list
+  {id:'ca1', n:'Alkami Technology', v:145.31, acct:'cashapp', reason:'Fintech SaaS · Speculative · No dividend'},
+  {id:'ca2', n:'Okta', v:10.14, acct:'cashapp', reason:'Cybersecurity overlap — CrowdStrike is stronger'},
+  {id:'ca3', n:'HubSpot', v:13.43, acct:'cashapp', reason:'CRM overlap with Salesforce · No dividend'},
+  {id:'ca4', n:'Accenture', v:6.28, acct:'cashapp', reason:'Tiny IT consulting · Overlaps with tech ETFs'},
+  {id:'ca5', n:'Unum Group', v:6.90, acct:'cashapp', reason:'Tiny insurance position · Better names already held'},
+  {id:'ca6', n:'Nasdaq Inc.', v:7.17, acct:'cashapp', reason:'Tiny · Better financial names already owned'},
+  {id:'ca7', n:'Medtronic', v:6.86, acct:'cashapp', reason:'Medical devices · Tiny · Better healthcare held'},
+  {id:'ca8', n:'iShares Core Dividend Growth', v:7.14, acct:'cashapp', reason:'Redundant — SCHD, VYM, HDV cover this'},
+  {id:'ca9', n:'Vanguard FTSE Emerging Markets', v:5.97, acct:'cashapp', reason:'Redundant — iShares MSCI Brazil covers EM'},
+  {id:'ca10', n:'Eastman Chemical', v:7.71, acct:'cashapp', reason:'Specialty chemicals · Not core to any theme'},
+  {id:'ca11', n:'J.M. Smucker', v:6.69, acct:'cashapp', reason:'Tiny food company · Redundant consumer staple'},
+
+  // STASH PERSONAL — sell list
+  {id:'st1', n:'FuelCell Energy (Stash)', v:4.98, acct:'stash', reason:'Down -87% · No recovery path · Sell now'},
+  {id:'st2', n:'Moderna Inc (Stash)', v:21.83, acct:'stash', reason:'Down -56% · Speculative biotech'},
+  {id:'st3', n:'C3 AI Inc (Stash)', v:9.15, acct:'stash', reason:'Down -54% · AI hype stock · No dividend'},
+  {id:'st4', n:'Accenture PLC (Stash)', v:15.94, acct:'stash', reason:'Down -62% · Also tiny in Cash App · Sell both'},
+  {id:'st5', n:'Enphase Energy (Stash)', v:11.04, acct:'stash', reason:'Down -79% · Clean energy speculation'},
+  {id:'st6', n:'Rivian Automotive (Stash)', v:6.59, acct:'stash', reason:'Down -67% · EV speculation · No profit path'},
+  {id:'st7', n:'Voyager Therapeutics (Stash)', v:13.88, acct:'stash', reason:'Down -43% · Biotech speculation'},
+  {id:'st8', n:'NVIDIA (Stash overlap)', v:78.69, acct:'stash', reason:'Overlap with Cash App $1,393 position · Consolidate'},
+  {id:'st9', n:'Tesla (Stash overlap)', v:26.88, acct:'stash', reason:'Overlap with Cash App $1,271 position · Consolidate'},
+  {id:'st10', n:'Meta Platforms (Stash overlap)', v:28.02, acct:'stash', reason:'Overlap with Cash App $1,119 position · Consolidate'},
+  {id:'st11', n:'Amazon (Stash overlap)', v:13.46, acct:'stash', reason:'Overlap with Cash App $979 position · Consolidate'},
+  {id:'st12', n:'Walmart (Stash overlap)', v:12.04, acct:'stash', reason:'Overlap with Cash App $171 position · Consolidate'},
+  {id:'st13', n:'Netflix (Stash overlap)', v:5.81, acct:'stash', reason:'Overlap with Cash App $304 position · Consolidate'},
+  {id:'st14', n:'Costco (Stash overlap)', v:5.08, acct:'stash', reason:'Overlap with Cash App $146 position · Consolidate'},
+  {id:'st15', n:'Apple (Stash overlap)', v:9.33, acct:'stash', reason:'Overlap with Cash App $665 position · Consolidate'},
+  {id:'st16', n:'Alphabet/Google (Stash overlap)', v:10.33, acct:'stash', reason:'Overlap with Cash App $19 position · Consolidate'},
+  {id:'st17', n:'Zscaler (Stash overlap)', v:1.24, acct:'stash', reason:'Down -58% in Stash · Also in Cash App · Sell Stash'},
+  {id:'st18', n:'Comcast (Stash)', v:0.08, acct:'stash', reason:'Down -24% · Tiny · Media declining'},
+  {id:'st19', n:'Kraft Heinz (Stash)', v:0.07, acct:'stash', reason:'Down -33% · Consumer staple with debt issues'},
+  {id:'st20', n:'American Vanguard Corp (Stash)', v:2.38, acct:'stash', reason:'Down -52% · Specialty chemicals · Not core'},
+  {id:'st21', n:'IAMGOLD Corporation (Stash)', v:2.26, acct:'stash', reason:'Down -24% · Tiny gold miner · Covered by GDX'},
+
+  // ROBINHOOD — sell list
+  {id:'rh1', n:'NVDA fractional (RH)', v:192.79, acct:'rh', reason:'Fractional — can\'t ACATS transfer · Sell → rebuy in Fidelity'},
+  {id:'rh2', n:'META fractional (RH)', v:551.40, acct:'rh', reason:'Fractional — can\'t ACATS transfer · Sell → rebuy in Fidelity'},
+  {id:'rh3', n:'GMEX (RH)', v:0.54, acct:'rh', reason:'Penny stock · Worthless · Sell'},
+  {id:'rh4', n:'NHTC (RH)', v:1.55, acct:'rh', reason:'Tiny · Not core · Sell'},
+  {id:'rh5', n:'ADTX (RH)', v:0.00, acct:'rh', reason:'Zero value · Sell or abandon'},
+  {id:'rh6', n:'OFS (RH)', v:3.39, acct:'rh', reason:'Tiny BDC position · Sell'},
+  {id:'rh7', n:'ICMB (RH)', v:1.20, acct:'rh', reason:'Tiny · Sell'},
+  {id:'rh8', n:'OXSQ (RH)', v:1.32, acct:'rh', reason:'Tiny BDC · Sell'},
+  {id:'rh9', n:'EXFY (RH)', v:1.69, acct:'rh', reason:'Tiny · Sell'},
+  {id:'rh10', n:'RDW (RH)', v:10.90, acct:'rh', reason:'Small · Sell'},
+  {id:'rh11', n:'BTC crypto fractional (RH)', v:6.36, acct:'rh', reason:'Fractional crypto · Sell → FBTC in Fidelity'},
+  {id:'rh12', n:'ETH crypto fractional (RH)', v:2.58, acct:'rh', reason:'Fractional crypto · Sell'},
+
+  // OVERLAPS — Cash App vs Fidelity
+  {id:'ov1', n:'MSFT — Fidelity ($84) vs Cash App ($432)', v:84.48, acct:'overlap', reason:'Keep Cash App position · Sell or leave Fidelity — decide after transfers settle'},
+  {id:'ov2', n:'JNJ — Fidelity ($121) + Cash App ($40)', v:40.31, acct:'overlap', reason:'Building JNJ in Fidelity per plan · Sell Cash App tiny position · Consolidate to Fidelity'},
+  {id:'ov3', n:'VZ — Fidelity ($83) + Cash App ($31)', v:31.64, acct:'overlap', reason:'Building VZ in Fidelity per plan · Sell Cash App tiny position · Consolidate to Fidelity'},
+  {id:'ov4', n:'KO — Fidelity ($91) + Cash App ($228)', v:91.31, acct:'overlap', reason:'Decide which account to consolidate KO in · Currently in both'},
+  {id:'ov5', n:'COST — Fidelity ($118) + Cash App ($146)', v:118.66, acct:'overlap', reason:'Already heavy Costco · Fidelity position may be worth selling — you said you have a lot'},
+  {id:'ov6', n:'PG — Fidelity ($104) + Cash App ($6)', v:6.19, acct:'overlap', reason:'Sell tiny Cash App PG · Keep and build Fidelity position'},
+  {id:'ov7', n:'NEE — Fidelity ($79) + Cash App ($7)', v:79.50, acct:'overlap', reason:'NEE has poor buy/hold ratings · Consider selling both · Already excluded from deploy plan'},
+  {id:'ov8', n:'SCHD — Fidelity ($156) + Cash App ($223)', v:0, acct:'overlap', reason:'Fine to hold in both — ETF designed to accumulate · No action needed unless consolidating'},
+  {id:'ov9', n:'V — Fidelity ($104) + Cash App ($267)', v:104.97, acct:'overlap', reason:'Keep Cash App V · Decide if Fidelity V should consolidate or build separately'},
+  {id:'ov10', n:'IAU/Gold — Fidelity ($77) + Cash App ($35)', v:77.48, acct:'overlap', reason:'Gold in both accounts · Fine to hold or consolidate to one account'},
+  {id:'ov11', n:'Lockheed — Fidelity IRA + Cash App ($33)', v:33.18, acct:'overlap', reason:'IRA transfer position + tiny Cash App · Tiny CA position could be sold'},
+];
+
+// ── STATE ─────────────────────────────────────────────────────
+let sold = new Set();
+try { const s = localStorage.getItem('master_sell'); if(s) sold = new Set(JSON.parse(s)); } catch(e){}
+
+function persist(){ try{ localStorage.setItem('master_sell', JSON.stringify([...sold])); }catch(e){} }
+
+function fmtF(v){ return '$'+parseFloat(v).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+
+function tagHTML(acct){
+  const map = {fidelity:'🏦 Fidelity',cashapp:'📱 Cash App',stash:'🌿 Stash',rh:'🟢 RH',webull:'📈 Webull',overlap:'⚠️ Overlap'};
+  const cls = {fidelity:'t-fidelity',cashapp:'t-cashapp',stash:'t-stash',rh:'t-rh',webull:'t-webull',overlap:'t-overlap'};
+  return `<span class="stag ${cls[acct]}">${map[acct]}</span>`;
+}
+
+function updateStats(){
+  let total = 0, done = 0, raised = 0, remaining = 0;
+  allItems.forEach(i => {
+    total++;
+    if(sold.has(i.id)){ done++; raised += i.v; }
+    else { remaining += i.v; }
+  });
+  const pct = total ? Math.round(done/total*100) : 0;
+  document.getElementById('cashTotal').textContent = fmtF(raised);
+  document.getElementById('doneCount').textContent = done;
+  document.getElementById('totalCount').textContent = 'of ' + total;
+  document.getElementById('progBar').style.width = pct + '%';
+  document.getElementById('progPct').textContent = pct + '%';
+  document.getElementById('remainVal').textContent = fmtF(remaining);
+}
+
+function toggle(id){
+  if(sold.has(id)) sold.delete(id); else sold.add(id);
+  persist();
+  const row = document.getElementById('row-'+id);
+  if(row) row.classList.toggle('checked', sold.has(id));
+  updateStats();
+}
+
+function buildSection(items, container, title){
+  if(!items.length){ container.innerHTML = '<div class="empty">Nothing to sell here</div>'; return; }
+  if(title){
+    const hdr = document.createElement('div');
+    hdr.className = 'sec-hdr';
+    const totalV = items.reduce((a,i)=>a+i.v,0);
+    hdr.innerHTML = `${title} <span class="sec-count">${items.length} items · ${fmtF(totalV)}</span>`;
+    container.appendChild(hdr);
+  }
+  items.forEach(item => {
+    const div = document.createElement('div');
+    div.className = 'sell-card';
+    const checked = sold.has(item.id);
+    div.innerHTML = `<div class="sell-row ${checked?'checked':''}" id="row-${item.id}" onclick="toggle('${item.id}')">
+      <div class="chkbox"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6.5L9 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="sinfo">
+        <div class="sn">${item.n}</div>
+        <div class="sm">${tagHTML(item.acct)} ${item.reason}</div>
+      </div>
+      <div class="sv">${item.v > 0 ? fmtF(item.v) : '$0'}</div>
+    </div>`;
+    container.appendChild(div);
+  });
+}
+
+function buildAll(){
+  const sections = [
+    {key:'fidelity', label:'🏦 Fidelity — Sell Today'},
+    {key:'webull', label:'📈 Webull — Sell Tomorrow'},
+    {key:'cashapp', label:'📱 Cash App — Trim List'},
+    {key:'stash', label:'🌿 Stash Personal — Sell/Overlap'},
+    {key:'rh', label:'🟢 Robinhood — Fractionals & Junk'},
+    {key:'overlap', label:'⚠️ Cross-Account Overlaps'},
+  ];
+  const c = document.getElementById('allList');
+  c.innerHTML = '';
+  sections.forEach(s => {
+    const items = allItems.filter(i => i.acct === s.key);
+    buildSection(items, c, s.label);
+  });
+
+  // individual tabs
+  sections.forEach(s => {
+    const el = document.getElementById(s.key+'List');
+    if(el){ el.innerHTML = ''; buildSection(allItems.filter(i=>i.acct===s.key), el, null); }
+  });
+
+  updateStats();
+}
+
+function resetAll(){ sold.clear(); persist(); buildAll(); }
+function resetSection(acct){
+  allItems.filter(i=>i.acct===acct).forEach(i=>sold.delete(i.id));
+  persist(); buildAll();
+}
+
+function showTab(tab){
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+tab).classList.add('active');
+  document.getElementById('nav-'+tab).classList.add('active');
+}
+
+buildAll();
+
+// PWA
+const _m={name:'Sell List',short_name:'Sell',start_url:'.',display:'standalone',background_color:'#0a0c12',theme_color:'#ff4d4d',icons:[{src:"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%230a0c12'/%3E%3Ctext y='.9em' font-size='80' x='10'%3E🔴%3C/text%3E%3C/svg%3E",sizes:'192x192',type:'image/svg+xml'}]};
+const _b=new Blob([JSON.stringify(_m)],{type:'application/json'});
+const _l=document.createElement('link');_l.rel='manifest';_l.href=URL.createObjectURL(_b);document.head.appendChild(_l);
+</script>
+</body>
+</html>
