@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Action Plan">
+<meta name="theme-color" content="#00c896">
+<title>🎯 Action Plan</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+body{font-family:-apple-system,'Segoe UI',Arial,sans-serif;background:#0a0c12;color:#e0e0e0;min-height:100vh;padding:14px 12px 90px;}
+.container{max-width:780px;margin:0 auto;}
+
+/* BANNER */
+.banner{position:sticky;top:0;z-index:50;background:#0a0c12;padding:10px 0 8px;}
+.banner-inner{border-radius:14px;padding:13px 16px;display:flex;justify-content:space-between;align-items:center;transition:all .3s;}
+.banner-inner.sell{background:linear-gradient(135deg,#1a0d0d,#0a0c12);border:1px solid #ff4d4d;}
+.banner-inner.buy{background:linear-gradient(135deg,#0d1a10,#0a0c12);border:1px solid #00c896;}
+.banner-inner.hold{background:linear-gradient(135deg,#0d1220,#0a0c12);border:1px solid #4a7dff;}
+.bi-left .label{font-size:10px;color:#777;text-transform:uppercase;letter-spacing:0.5px;}
+.bi-left .amount{font-size:30px;font-weight:800;letter-spacing:-1px;}
+.sell .amount{color:#ff6b6b;} .buy .amount{color:#4ade80;} .hold .amount{color:#7aa2ff;}
+.bi-left .sub{font-size:9px;color:#555;margin-top:1px;}
+.bi-right{text-align:right;}
+.bi-right .label{font-size:10px;color:#777;}
+.bi-right .done{font-size:20px;font-weight:800;}
+.sell .done{color:#ff6b6b;} .buy .done{color:#4ade80;}
+.bi-right .total{font-size:10px;color:#555;}
+
+.prog-wrap{background:#1e2130;border-radius:20px;height:5px;margin:8px 0 4px;overflow:hidden;}
+.prog-bar{height:100%;border-radius:20px;transition:width 0.4s;width:0%;}
+.sell .prog-bar{background:linear-gradient(90deg,#ff4d4d,#ff9900);}
+.buy .prog-bar{background:linear-gradient(90deg,#00c896,#4ade80);}
+.prog-text{font-size:9px;color:#555;margin-bottom:2px;}
+
+/* SECTION */
+.sec-hdr{font-size:10px;color:#555;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;margin:16px 0 7px;padding-left:2px;display:flex;justify-content:space-between;align-items:center;}
+.sec-count{font-size:9px;color:#777;}
+.note{font-size:10px;color:#888;background:#12141c;border:1px solid #22242e;border-radius:10px;padding:10px 12px;margin-bottom:12px;line-height:1.5;}
+.note b{color:#ccc;}
+
+/* CARDS */
+.item-card{background:#13161f;border:1px solid #1e2130;border-radius:11px;margin-bottom:7px;overflow:hidden;}
+.item-row{display:flex;align-items:center;padding:11px 13px;cursor:pointer;user-select:none;}
+.item-row:active{background:#1a1d2e;}
+.item-row.checked{opacity:0.35;}
+.item-row.checked .in{text-decoration:line-through;color:#333;}
+.chkbox{width:20px;height:20px;border:2px solid #2a2d3e;border-radius:5px;margin-right:11px;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all 0.2s;}
+.sell-row.checked .chkbox{background:#ff4d4d;border-color:#ff4d4d;}
+.buy-row.checked .chkbox{background:#00c896;border-color:#00c896;}
+.chkbox svg{display:none;}
+.item-row.checked .chkbox svg{display:block;}
+.iinfo{flex:1;min-width:0;}
+.in{font-size:12px;color:#d0d0d0;font-weight:600;transition:all 0.2s;}
+.im{font-size:9px;color:#666;margin-top:2px;line-height:1.4;}
+.iv{font-size:13px;font-weight:700;white-space:nowrap;margin-left:8px;flex-shrink:0;}
+.sell-row .iv{color:#ff6b6b;}
+.buy-row .iv{color:#4ade80;}
+.item-row.checked .iv{color:#333;}
+
+/* HOLD (no checkbox) */
+.hold-row{display:flex;align-items:center;padding:9px 13px;justify-content:space-between;}
+.hold-row .hn{font-size:12px;color:#c0c0c0;font-weight:600;}
+.hold-row .hq{font-size:9px;color:#666;margin-left:6px;}
+.hold-row .hv{font-size:12px;font-weight:700;color:#7aa2ff;}
+.acct-hdr{font-size:9px;color:#4a7dff;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;margin:14px 0 6px;padding:6px 10px;background:#0d1220;border-radius:8px;display:flex;justify-content:space-between;}
+
+/* NAV */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#1a1d2e;border-top:1px solid #2a2d3e;display:flex;z-index:100;}
+.nav-btn{flex:1;padding:11px 6px;text-align:center;cursor:pointer;font-size:10px;color:#555;border:none;background:transparent;font-weight:600;}
+.nav-btn .nav-icon{font-size:17px;display:block;margin-bottom:2px;}
+.nav-btn.active-sell{color:#ff6b6b;}
+.nav-btn.active-fsell{color:#ff9a5c;}
+.nav-btn.active-buy{color:#4ade80;}
+.nav-btn.active-hold{color:#7aa2ff;}
+.tab-content{display:none;}
+.tab-content.active{display:block;}
+
+.reset-btn{display:block;width:100%;margin-top:10px;padding:11px;background:#1a1d2e;border:1px solid #2a2d3e;border-radius:10px;color:#555;font-size:11px;cursor:pointer;text-align:center;}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- ============ CASH APP SELL TAB ============ -->
+<div id="tab-sell" class="tab-content active">
+  <div class="banner">
+    <div class="banner-inner sell">
+      <div class="bi-left">
+        <div class="label">💰 Cash Raised</div>
+        <div class="amount" id="sellCash">$0</div>
+        <div class="sub">📱 Cash App — full liquidation</div>
+      </div>
+      <div class="bi-right">
+        <div class="label">Sold</div>
+        <div class="done" id="sellDone">0</div>
+        <div class="total" id="sellTotal">of 0</div>
+      </div>
+    </div>
+    <div class="prog-wrap"><div class="prog-bar" id="sellBar"></div></div>
+    <div class="prog-text"><span id="sellPct">0%</span> complete · <span id="sellRemain">$0</span> remaining</div>
+  </div>
+  <div class="note"><b>Plan:</b> Sell every Cash App position, ACH the cash to Fidelity. Of the total, <b>$1,000 → Rollover IRA</b> (2026 contribution, well under the $7,500 limit), the rest → Individual account to fund the Buy tab. Reason tags below show which ones you're rebuying vs. just cashing out. Check taxable-event details with your accountant.</div>
+  <div id="sellList"></div>
+  <button class="reset-btn" onclick="resetSell()">↺ Reset Cash App List</button>
+</div>
+
+<!-- ============ FIDELITY SELL TAB ============ -->
+<div id="tab-fsell" class="tab-content">
+  <div class="banner">
+    <div class="banner-inner sell">
+      <div class="bi-left">
+        <div class="label">💰 Cash Raised</div>
+        <div class="amount" id="fsellCash">$0</div>
+        <div class="sub">🏦 Fidelity — cleanup/trim only</div>
+      </div>
+      <div class="bi-right">
+        <div class="label">Sold</div>
+        <div class="done" id="fsellDone">0</div>
+        <div class="total" id="fsellTotal">of 0</div>
+      </div>
+    </div>
+    <div class="prog-wrap"><div class="prog-bar" id="fsellBar"></div></div>
+    <div class="prog-text"><span id="fsellPct">0%</span> complete · <span id="fsellRemain">$0</span> remaining</div>
+  </div>
+  <div class="note"><b>Plan:</b> This is NOT your whole Fidelity account — just a short trim list. Small dust lots, redundant overlaps, and a couple of speculative names that don't fit the strategy. Everything else in Fidelity stays put — see the Hold tab.</div>
+  <div id="fsellList"></div>
+  <button class="reset-btn" onclick="resetFsell()">↺ Reset Fidelity List</button>
+</div>
+
+<!-- ============ BUY TAB ============ -->
+<div id="tab-buy" class="tab-content">
+  <div class="banner">
+    <div class="banner-inner buy">
+      <div class="bi-left">
+        <div class="label">🛒 Cash Deployed</div>
+        <div class="amount" id="buyCash">$0</div>
+        <div class="sub">From Cash App proceeds</div>
+      </div>
+      <div class="bi-right">
+        <div class="label">Bought</div>
+        <div class="done" id="buyDone">0</div>
+        <div class="total" id="buyTotal">of 0</div>
+      </div>
+    </div>
+    <div class="prog-wrap"><div class="prog-bar" id="buyBar"></div></div>
+    <div class="prog-text"><span id="buyPct">0%</span> complete · <span id="buyRemain">$0</span> unallocated</div>
+  </div>
+  <div class="note"><b>Strategy:</b> Mostly rebuying quality names out of the Cash App sell list plus one new turnaround name (Intel), leaning toward known businesses flagged as reasonably valued rather than just adding to your biggest current winners. Buy-and-hold, not trading. Amounts are suggested weights, not exact — scale to your actual settled cash. Valuation calls reflect analyst/screener sentiment as of mid-2026, not a guarantee — do your own check before each buy.</div>
+  <div id="buyList"></div>
+  <button class="reset-btn" onclick="resetBuy()">↺ Reset Buy List</button>
+</div>
+
+<!-- ============ HOLD TAB ============ -->
+<div id="tab-hold" class="tab-content">
+  <div class="banner">
+    <div class="banner-inner hold">
+      <div class="bi-left">
+        <div class="label">🏦 Total Held</div>
+        <div class="amount" id="holdTotal">$0</div>
+        <div class="sub">Individual + Rollover IRA — do not sell</div>
+      </div>
+    </div>
+  </div>
+  <div class="note">Reference only — no checkboxes. These are your current Fidelity positions as of 7/14/2026. Nothing here is being sold; it's here so you don't accidentally re-buy something you're already holding a full position in.</div>
+  <div id="holdList"></div>
+</div>
+
+</div><!-- container -->
+
+<div class="bottom-nav">
+  <button class="nav-btn active-sell" id="nav-sell" onclick="showTab('sell')"><span class="nav-icon">📱</span>CashApp</button>
+  <button class="nav-btn" id="nav-fsell" onclick="showTab('fsell')"><span class="nav-icon">🏦</span>Fid. Sell</button>
+  <button class="nav-btn" id="nav-buy" onclick="showTab('buy')"><span class="nav-icon">🟢</span>Buy</button>
+  <button class="nav-btn" id="nav-hold" onclick="showTab('hold')"><span class="nav-icon">⚪</span>Hold</button>
+</div>
+
+<script>
+// ================= SELL: Cash App full liquidation =================
+const sellItems = [
+{n:"Eli Lilly",v:806.27},{n:"GE Vernova",v:711.54},{n:"Mastercard",v:269.26},
+{n:"Howmet Aerospace",v:200.73},{n:"Broadcom",v:182.31},{n:"Spotify",v:177.19},
+{n:"Taiwan Semiconductor (TSMC)",v:172.33},{n:"Vertex Pharmaceuticals",v:155.03},
+{n:"Deere",v:141.33},{n:"Costco",v:140.78},{n:"Autodesk",v:127.44},{n:"Apple",v:119.25},
+{n:"Zscaler",v:109.22},{n:"Live Nation Entertainment",v:103.08},{n:"Simon Property Group",v:100.29},
+{n:"Vanguard Real Estate ETF",v:85.96},{n:"Assurant",v:76.68},{n:"Thermo Fisher Scientific",v:75.77},
+{n:"Diamondback Energy",v:69.44},{n:"Micron Technology",v:68.27},
+{n:"VanEck Junior Gold Miners ETF",v:66.68},{n:"Extra Space Storage",v:61.43},
+{n:"ConocoPhillips",v:59.56},{n:"Lam Research",v:58.79},{n:"Vistra Corp",v:57.67},
+{n:"Royal Gold",v:55.20},{n:"Home Depot",v:53.12},{n:"Walmart",v:53.09},
+{n:"Anheuser-Busch Inbev",v:51.55},{n:"Abbott",v:50.32},{n:"Enbridge",v:49.89},
+{n:"FedEx",v:49.59},{n:"Tesla",v:46.97},{n:"Realty Income",v:45.65},{n:"JPMorgan Chase",v:44.66},
+{n:"Bank of New York Mellon",v:44.01},{n:"Bunge",v:43.95},{n:"Monolithic Power Systems",v:43.41},
+{n:"Johnson & Johnson",v:40.25},{n:"SPDR S&P Oil & Gas Explorer",v:39.37},
+{n:"Wells Fargo",v:37.21},{n:"AstraZeneca",v:37.00},{n:"Taiwan MSCI ETF (iShares)",v:35.78},
+{n:"iShares Gold Trust",v:35.64},{n:"Chevron",v:35.19},{n:"Lockheed Martin",v:33.58},
+{n:"Mondelez",v:33.21},{n:"Bank of America",v:32.61},{n:"Dycom Industries",v:31.98},
+{n:"Pembina Pipeline",v:31.52},{n:"Alibaba",v:30.32},{n:"Salesforce",v:30.23},
+{n:"Oracle",v:29.55},{n:"Disney",v:29.41},{n:"SPDR Gold Trust",v:29.24},{n:"Verizon",v:29.20},
+{n:"Capital One Financial",v:28.92},{n:"Devon Energy",v:28.74},{n:"Kinder Morgan",v:28.29},
+{n:"Public Storage",v:28.19},{n:"Vanguard FTSE Developed Markets",v:26.56},
+{n:"ServiceNow",v:25.62},{n:"Arista Networks",v:24.67},{n:"Charles Schwab",v:24.23},
+{n:"Invesco QQQ Trust",v:24.09},{n:"Suncor Energy",v:22.91},{n:"Constellation Energy",v:22.81},
+{n:"Synopsys",v:22.55},{n:"Phillips 66",v:22.43},{n:"MP Materials",v:22.13},
+{n:"Alphabet Class C",v:20.92},{n:"United Parcel Service",v:20.67},{n:"Meta",v:20.42},
+{n:"iShares MSCI Brazil ETF",v:19.77},{n:"Uber Technologies",v:17.73},{n:"VICI Properties",v:17.63},
+{n:"McDonald's",v:17.10},{n:"Vertiv",v:16.34},{n:"Cheniere Energy",v:14.94},
+{n:"Vanguard Information Tech ETF",v:11.88},{n:"Host Hotels & Resorts",v:11.83},
+{n:"Tractor Supply",v:11.79},{n:"Alaska Air",v:11.36},{n:"L3Harris Technologies",v:10.66},
+{n:"Vanguard Total Stock Market",v:10.43},{n:"AeroVironment",v:10.34},{n:"Vanguard Growth ETF",v:10.26},
+{n:"Freeport-McMoran",v:10.10},{n:"Elevance Health",v:9.89},{n:"Honda Motor",v:9.24},
+{n:"Amazon",v:8.89},{n:"Netflix",v:7.41},{n:"IBM",v:7.16},{n:"VanEck Gold Miners ETF",v:6.59},
+{n:"Western Alliance",v:6.06},{n:"Microsoft",v:5.73},{n:"Chesapeake Energy",v:5.32},
+{n:"Enterprise Products",v:5.21},{n:"TechnipFMC",v:4.58},{n:"Marvell Technology",v:4.25},
+{n:"iShares Core High Dividend",v:2.51},{n:"GE Aerospace",v:1.76},{n:"Shell",v:1.38},
+{n:"TG Therapeutics",v:1.35},{n:"Barrick Mining Corp",v:0.96},{n:"Ares Capital",v:0.75},
+{n:"Targa Resources",v:0.64},{n:"iShares Silver Trust",v:0.60},{n:"Vanguard High Dividend Yield",v:0.56},
+{n:"NVIDIA",v:0.49},{n:"Marathon Petroleum",v:0.48},{n:"Take-Two Interactive",v:0.45},
+{n:"Palo Alto Networks",v:0.39},{n:"Schwab US Dividend Equity ETF",v:0.37},{n:"Cameco",v:0.36},
+{n:"Citigroup",v:0.30},{n:"Cenovus Energy",v:0.26},{n:"Visa",v:0.24},{n:"AbbVie",v:0.21},
+{n:"CrowdStrike",v:0.20},{n:"The Blackstone Group",v:0.19},{n:"ExxonMobil",v:0.18},
+{n:"General Motors",v:0.17},{n:"Kratos Defense & Security",v:0.15},{n:"TKO Group",v:0.14},
+{n:"nVent Electric",v:0.12},{n:"Coca-Cola",v:0.03}
+];
+
+// Names being rebought in Fidelity (matches Buy tab) — used to tag Cash App sell reasons
+const rebuySet = new Set(["Charles Schwab","Broadcom","JPMorgan Chase","Taiwan Semiconductor (TSMC)","Bank of America","ServiceNow","Costco","Home Depot","Oracle","Disney"]);
+function sellReason(item){
+  if(rebuySet.has(item.n)) return "🔁 Rebuying in Fidelity — quality name, just consolidating accounts";
+  if(item.v < 1) return "🪙 Dust — cash out only, not worth rebuying";
+  return "💵 Cash out — not on the rebuy list right now";
+}
+
+// ================= FIDELITY SELL: short trim/cleanup list =================
+const fidelitySellItems = [
+{n:"C3.ai (AI)",acct:"Individual",v:9.09,reason:"Down -53% total · speculative AI hype · no dividend · cut the loss"},
+{n:"Riot Platforms (RIOT)",acct:"Individual",v:20.23,reason:"Crypto miner · doesn't fit the dividend/growth strategy"},
+{n:"Seven & I Holdings (SVNDY)",acct:"Individual",v:36.96,reason:"Tiny foreign position · not worth holding"},
+{n:"Voyager Therapeutics (VYGR)",acct:"Individual",v:9.72,reason:"Speculative biotech · tiny position"},
+{n:"NextEra Energy (NEE)",acct:"Individual",v:81.44,reason:"Historically poor buy/hold ratings · consider cutting"},
+{n:"iShares US Treasury Bond (GOVT)",acct:"Individual",v:22.57,reason:"Redundant treasury exposure · you already hold TFLO"},
+{n:"State Street Dow Jones (DIA)",acct:"Individual",v:4.71,reason:"Dust fractional lot · redundant with VOO/VTI"},
+{n:"Invesco DJ Industrial (DJD)",acct:"Individual",v:4.87,reason:"Dust position · redundant index exposure"},
+{n:"State Street S&P 500 (SPY)",acct:"Individual",v:14.29,reason:"Dust fractional lot · redundant with VOO"},
+{n:"SPDR Gold Trust (GLD)",acct:"Individual",v:2.98,reason:"Dust position · redundant — you already hold iShares Gold Trust (IAU)"},
+{n:"Tesla — fractional lot",acct:"Individual",v:4.75,reason:"Dust fractional lot (0.012 sh) · redundant with your 3-share TSLA position · consolidate"},
+{n:"Valero Energy (VLO)",acct:"Individual",v:9.82,reason:"Dust fractional position (0.033 sh) · not worth tracking"}
+];
+
+// ================= BUY: Fidelity deployment list =================
+const buyItems = [
+{n:"Charles Schwab (SCHW)",v:600,note:"Rebuy from Cash App — flagged undervalued relative to earnings power, financials rotation candidate"},
+{n:"Broadcom (AVGO)",v:600,note:"Rebuy from Cash App — AI networking/software, reasonably priced vs. NVDA"},
+{n:"JPMorgan Chase (JPM)",v:500,note:"Rebuy from Cash App — best-in-class bank, fair valuation"},
+{n:"Taiwan Semiconductor (TSM)",v:500,note:"Rebuy from Cash App — the foundry behind every AI chip, reasonable vs. growth"},
+{n:"Bank of America (BAC)",v:500,note:"Trades below historical valuation, steady earner — build the small stake into a real one"},
+{n:"ServiceNow (NOW)",v:450,note:"Rebuy from Cash App — enterprise AI workflow leader, still compounding"},
+{n:"Costco (COST)",v:450,note:"Rebuy from Cash App — rarely 'cheap' but a proven quality compounder"},
+{n:"Home Depot (HD)",v:400,note:"Rebuy from Cash App — cyclically depressed, housing-adjacent"},
+{n:"Oracle (ORCL)",v:400,note:"Rebuy from Cash App — cloud/AI infrastructure re-rating story"},
+{n:"Intel (INTC)",v:350,note:"New — turnaround/value play flagged by multiple analysts; higher risk, real upside if execution lands"},
+{n:"Disney (DIS)",v:350,note:"Rebuy from Cash App — still below historic highs, parks + streaming improving"},
+{n:"Cash buffer / money market",v:40,note:"Leftover — park it, deploy opportunistically"}
+];
+
+// ================= HOLD: current Fidelity positions =================
+const holdIndividual = [
+{n:"NVIDIA",q:"7",v:1480.92},{n:"Meta Platforms",q:"2",v:1321.43},{n:"TG Therapeutics",q:"24",v:1326.36},
+{n:"CrowdStrike",q:"7",v:1456.03},{n:"Dycom Industries",q:"3",v:1249.65},{n:"Eli Lilly",q:"1",v:1156.11},
+{n:"Tesla",q:"3",v:1189.35},{n:"Vanguard Total Intl Stock (VTI)",q:"3",v:1114.41},{n:"iShares Core MSCI EAFE (IEFA)",q:"13",v:1260.93},
+{n:"Amazon",q:"4",v:986.08},{n:"Costco",q:"—",v:920.50},{n:"Marvell Technology",q:"4",v:897.28},
+{n:"Howmet Aerospace",q:"3",v:828.63},{n:"nVent Electric",q:"5",v:807.35},{n:"GE Aerospace",q:"2",v:709.26},
+{n:"Lam Research",q:"2",v:697.03},{n:"Vanguard S&P 500 (VOO)",q:"1",v:691.64},{n:"iShares Core Div Growth (DGRO)",q:"9",v:688.82},
+{n:"iShares Core S&P Mid-Cap (IJH)",q:"9",v:679.95},{n:"iShares 1-5Y USD Bond (IUSB)",q:"14",v:639.79},
+{n:"Treasury Floating Rate (TFLO)",q:"13",v:657.34},{n:"Palo Alto Networks",q:"2",v:703.84},
+{n:"Ares Capital (ARCC)",q:"20",v:375.90},{n:"Cameco (CCJ)",q:"6",v:548.86},{n:"Expand Energy (EXE)",q:"6",v:524.70},
+{n:"Spotify",q:"1",v:482.55},{n:"Vistra Corp (VST)",q:"3",v:474.75},{n:"Take-Two Interactive (TTWO)",q:"2",v:477.34},
+{n:"Microsoft",q:"1.216",v:470.75},{n:"Visa (V)",q:"1.292",v:460.85},{n:"Schwab US Div Equity (SCHD)",q:"12.879",v:415.41},
+{n:"Diamondback Energy (FANG)",q:"2.051",v:389.71},{n:"General Motors (GM)",q:"4",v:305.92},
+{n:"Marathon Petroleum (MPC)",q:"1",v:300.81},{n:"Netflix",q:"4",v:295.30},{n:"Targa Resources (TRGP)",q:"1",v:280.75},
+{n:"Wells Fargo",q:"1",v:84.73},{n:"Western Alliance (WAL)",q:"1",v:84.73},{n:"Walmart",q:"3",v:434.68},
+{n:"Chevron (CVX)",q:"1",v:181.49},{n:"iShares Core High Dividend (HDV)",q:"9",v:249.25},
+{n:"Shell (SHEL)",q:"3",v:253.06},{n:"iShares Silver Trust (SLV)",q:"4",v:212.66},{n:"Citigroup",q:"1",v:132.94},
+{n:"Enterprise Products (EPD)",q:"4",v:151.30},{n:"TechnipFMC (FTI)",q:"2",v:147.66},{n:"Accenture (ACN)",q:"1",v:135.83},
+{n:"Coca-Cola (KO)",q:"4.098",v:341.38},{n:"Kratos Defense (KTOS)",q:"7",v:350.00},{n:"Johnson & Johnson",q:"0.465",v:117.54},
+{n:"VICI Properties",q:"5",v:131.72},{n:"NextEra Energy (NEE)",q:"0.91",v:81.44},{n:"Alaska Air (ALK)",q:"2",v:93.78},
+{n:"Devon Energy (DVN)",q:"2",v:86.22},{n:"Honda Motor (HMC)",q:"3",v:84.13},{n:"Uber",q:"1",v:71.80},
+{n:"Cenovus Energy (CVE)",q:"4",v:109.98},{n:"Occidental Petroleum",q:"—",v:108.48},{n:"Barrick Mining (B)",q:"3",v:109.42},
+{n:"Bank of America (BAC)",q:"2",v:120.17},{n:"Blackstone (BX)",q:"1",v:125.07},{n:"Suncor Energy (SU)",q:"2",v:122.24},
+{n:"AbbVie",q:"1",v:245.34},{n:"Apple",q:"2",v:630.58},{n:"iShares Core US Aggregate Bond (AGG)",q:"2",v:195.97},
+{n:"Mondelez (MDLZ)",q:"1",v:59.01},{n:"Procter & Gamble (PG)",q:"0.69",v:101.12},{n:"VanEck Gold Miners (GDX)",q:"1",v:74.85},
+{n:"iShares Gold Trust (IAU)",q:"1",v:76.37},
+{n:"iShares Core 1-5Y Bond (ISTB)",q:"2",v:96.05},
+{n:"iShares Core MSCI Total Intl (IXUS)",q:"5",v:472.77},{n:"Vanguard Intl Equity Idx (VWO)",q:"6",v:354.21},
+{n:"Verizon (VZ)",q:"3.014",v:127.92},
+{n:"Vanguard High Div Yield (VYM)",q:"1",v:160.30},{n:"Pembina Pipeline (PBA)",q:"1",v:49.92},
+{n:"TKO Group",q:"1",v:184.41},{n:"Tractor Supply (TSCO)",q:"2",v:60.61},{n:"Abercrombie & Fitch (ANF)",q:"1",v:92.11},
+{n:"American Vanguard (AVD)",q:"1",v:2.64},{n:"Broadcom (AVGO)",q:"1",v:393.85},{n:"iShares Conservative Alloc (AOK)",q:"1",v:41.12},
+];
+const holdIRA = [
+{n:"Alphabet (GOOGL)",q:"6",v:2144.91},{n:"Meta Platforms",q:"1",v:661.43},{n:"Broadcom (AVGO)",q:"1",v:393.85},
+{n:"iShares Core Div Growth (DGRO)",q:"9",v:688.82},{n:"SpaceX (SPCX)",q:"1",v:138.94},{n:"Occidental Petroleum (OXY)",q:"2",v:108.48},
+{n:"Accenture (ACN)",q:"1",v:135.83},{n:"Vanguard World Tech (VGT)",q:"2",v:235.06},{n:"Zoom (ZM)",q:"2",v:181.47},
+{n:"Abercrombie & Fitch (ANF)",q:"1",v:92.11},{n:"Coca-Cola (KO)",q:"1",v:83.17},{n:"TG Therapeutics (TGTX)",q:"1",v:55.10},
+{n:"Vanguard Emerging Mkts (VWO)",q:"1",v:59.05},{n:"Vanguard Europe (VGK)",q:"1",v:88.41},{n:"Schwab US Div Equity (SCHD)",q:"2",v:64.47},
+{n:"Kratos Defense (KTOS)",q:"1",v:49.88},{n:"iShares MSCI India (INDA)",q:"1",v:48.69},{n:"iShares Conservative Alloc (AOK)",q:"1",v:41.12},
+{n:"American Vanguard (AVD)",q:"1",v:2.64},{n:"SPDR Gold Trust (GLD)",q:"0.026",v:9.67},{n:"State Street S&P 500 (SPY)",q:"0.019",v:14.29},
+{n:"Cash (money market)",q:"—",v:2814.93},
+];
+
+// ================= STATE =================
+let sold = new Set(); try{const s=localStorage.getItem('ap_sold'); if(s) sold=new Set(JSON.parse(s));}catch(e){}
+let bought = new Set(); try{const s=localStorage.getItem('ap_bought'); if(s) bought=new Set(JSON.parse(s));}catch(e){}
+let fsold = new Set(); try{const s=localStorage.getItem('ap_fsold'); if(s) fsold=new Set(JSON.parse(s));}catch(e){}
+function persistSell(){try{localStorage.setItem('ap_sold',JSON.stringify([...sold]));}catch(e){}}
+function persistBuy(){try{localStorage.setItem('ap_bought',JSON.stringify([...bought]));}catch(e){}}
+function persistFsell(){try{localStorage.setItem('ap_fsold',JSON.stringify([...fsold]));}catch(e){}}
+function fmt(v){return '$'+parseFloat(v).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
+
+// ================= SELL RENDER =================
+function buildSell(){
+  const c=document.getElementById('sellList'); c.innerHTML='';
+  sellItems.forEach((item,i)=>{
+    const id='sl'+i;
+    const div=document.createElement('div'); div.className='item-card';
+    const checked=sold.has(id);
+    div.innerHTML=`<div class="item-row sell-row ${checked?'checked':''}" id="row-${id}" onclick="toggleSell('${id}')">
+      <div class="chkbox"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6.5L9 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="iinfo"><div class="in">${item.n}</div><div class="im">${sellReason(item)}</div></div>
+      <div class="iv">${fmt(item.v)}</div>
+    </div>`;
+    c.appendChild(div);
+  });
+  updateSellStats();
+}
+function toggleSell(id){
+  if(sold.has(id)) sold.delete(id); else sold.add(id);
+  persistSell();
+  const row=document.getElementById('row-'+id); if(row) row.classList.toggle('checked',sold.has(id));
+  updateSellStats();
+}
+function updateSellStats(){
+  let total=0,done=0,raised=0,remaining=0;
+  sellItems.forEach((item,i)=>{ total++; const id='sl'+i; if(sold.has(id)){done++;raised+=item.v;} else {remaining+=item.v;} });
+  const pct=total?Math.round(done/total*100):0;
+  document.getElementById('sellCash').textContent=fmt(raised);
+  document.getElementById('sellDone').textContent=done;
+  document.getElementById('sellTotal').textContent='of '+total;
+  document.getElementById('sellBar').style.width=pct+'%';
+  document.getElementById('sellPct').textContent=pct+'%';
+  document.getElementById('sellRemain').textContent=fmt(remaining);
+}
+function resetSell(){ sold.clear(); persistSell(); buildSell(); }
+
+// ================= FIDELITY SELL RENDER =================
+function buildFsell(){
+  const c=document.getElementById('fsellList'); c.innerHTML='';
+  fidelitySellItems.forEach((item,i)=>{
+    const id='fs'+i;
+    const div=document.createElement('div'); div.className='item-card';
+    const checked=fsold.has(id);
+    div.innerHTML=`<div class="item-row sell-row ${checked?'checked':''}" id="row-${id}" onclick="toggleFsell('${id}')">
+      <div class="chkbox"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6.5L9 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="iinfo"><div class="in">${item.n} <span style="color:#4a7dff;font-size:8px;">· ${item.acct}</span></div><div class="im">${item.reason}</div></div>
+      <div class="iv">${fmt(item.v)}</div>
+    </div>`;
+    c.appendChild(div);
+  });
+  updateFsellStats();
+}
+function toggleFsell(id){
+  if(fsold.has(id)) fsold.delete(id); else fsold.add(id);
+  persistFsell();
+  const row=document.getElementById('row-'+id); if(row) row.classList.toggle('checked',fsold.has(id));
+  updateFsellStats();
+}
+function updateFsellStats(){
+  let total=0,done=0,raised=0,remaining=0;
+  fidelitySellItems.forEach((item,i)=>{ total++; const id='fs'+i; if(fsold.has(id)){done++;raised+=item.v;} else {remaining+=item.v;} });
+  const pct=total?Math.round(done/total*100):0;
+  document.getElementById('fsellCash').textContent=fmt(raised);
+  document.getElementById('fsellDone').textContent=done;
+  document.getElementById('fsellTotal').textContent='of '+total;
+  document.getElementById('fsellBar').style.width=pct+'%';
+  document.getElementById('fsellPct').textContent=pct+'%';
+  document.getElementById('fsellRemain').textContent=fmt(remaining);
+}
+function resetFsell(){ fsold.clear(); persistFsell(); buildFsell(); }
+
+// ================= BUY RENDER =================
+function buildBuy(){
+  const c=document.getElementById('buyList'); c.innerHTML='';
+  buyItems.forEach((item,i)=>{
+    const id='bl'+i;
+    const div=document.createElement('div'); div.className='item-card';
+    const checked=bought.has(id);
+    div.innerHTML=`<div class="item-row buy-row ${checked?'checked':''}" id="row-${id}" onclick="toggleBuy('${id}')">
+      <div class="chkbox"><svg width="10" height="8" viewBox="0 0 10 8" fill="none"><path d="M1 3.5L3.5 6.5L9 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="iinfo"><div class="in">${item.n}</div><div class="im">${item.note}</div></div>
+      <div class="iv">${fmt(item.v)}</div>
+    </div>`;
+    c.appendChild(div);
+  });
+  updateBuyStats();
+}
+function toggleBuy(id){
+  if(bought.has(id)) bought.delete(id); else bought.add(id);
+  persistBuy();
+  const row=document.getElementById('row-'+id); if(row) row.classList.toggle('checked',bought.has(id));
+  updateBuyStats();
+}
+function updateBuyStats(){
+  let total=0,done=0,deployed=0,remaining=0;
+  buyItems.forEach((item,i)=>{ total++; const id='bl'+i; if(bought.has(id)){done++;deployed+=item.v;} else {remaining+=item.v;} });
+  const pct=total?Math.round(done/total*100):0;
+  document.getElementById('buyCash').textContent=fmt(deployed);
+  document.getElementById('buyDone').textContent=done;
+  document.getElementById('buyTotal').textContent='of '+total;
+  document.getElementById('buyBar').style.width=pct+'%';
+  document.getElementById('buyPct').textContent=pct+'%';
+  document.getElementById('buyRemain').textContent=fmt(remaining);
+}
+function resetBuy(){ bought.clear(); persistBuy(); buildBuy(); }
+
+// ================= HOLD RENDER =================
+function buildHold(){
+  const c=document.getElementById('holdList'); c.innerHTML='';
+  let grand=0;
+  function section(title,items){
+    const total=items.reduce((a,i)=>a+i.v,0); grand+=total;
+    const hdr=document.createElement('div'); hdr.className='acct-hdr';
+    hdr.innerHTML=`<span>${title}</span><span>${fmt(total)}</span>`;
+    c.appendChild(hdr);
+    items.slice().sort((a,b)=>b.v-a.v).forEach(item=>{
+      const row=document.createElement('div'); row.className='hold-row';
+      row.innerHTML=`<span class="hn">${item.n}<span class="hq"> · ${item.q} sh</span></span><span class="hv">${fmt(item.v)}</span>`;
+      c.appendChild(row);
+    });
+  }
+  section('🏦 Fidelity Individual',holdIndividual);
+  section('🏦 Fidelity Rollover IRA',holdIRA);
+  document.getElementById('holdTotal').textContent=fmt(grand);
+}
+
+// ================= TABS =================
+function showTab(tab){
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active-sell','active-fsell','active-buy','active-hold'));
+  document.getElementById('tab-'+tab).classList.add('active');
+  document.getElementById('nav-'+tab).classList.add('active-'+tab);
+}
+
+buildSell(); buildFsell(); buildBuy(); buildHold();
+
+// PWA
+const _m={name:'Action Plan',short_name:'Plan',start_url:'.',display:'standalone',background_color:'#0a0c12',theme_color:'#00c896',icons:[{src:"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%230a0c12'/%3E%3Ctext y='.9em' font-size='80' x='10'%3E%F0%9F%8E%AF%3C/text%3E%3C/svg%3E",sizes:'192x192',type:'image/svg+xml'}]};
+const _b=new Blob([JSON.stringify(_m)],{type:'application/json'});
+const _l=document.createElement('link');_l.rel='manifest';_l.href=URL.createObjectURL(_b);document.head.appendChild(_l);
+</script>
+</body>
+</html>
